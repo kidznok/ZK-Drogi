@@ -1,14 +1,13 @@
-# ZK Drogi 0.31 — aktualizacja osi po ruchu PI
+# ZK Drogi 0.32 — rzutnia, wymiary i podział modelu
 
-Log użytkownika potwierdził: Axis PI build complete, następnie Teigha.Runtime.Exception: Layer is locked w DrawAxisTypes. Błąd przy usuwaniu starej, kolorowej reprezentacji powodował rollback całej aktualizacji, więc wynik osi nie podążał za przesuniętym PI. Dotyczył również zmian geometrii przez okno i odświeżania po utworzeniu profilu. Kolejny rzeczywisty stos potwierdził tę samą ścieżkę przy AddDaylight → UpdatePlan → DrawAxisTypes, przed wyborem terenu skarpy.
+- Utwórz / odśwież 3D nie wywołuje już zmiany kierunku, targetu, zoomu, środka ani skręcenia bieżącej rzutni. Przelicza model i włącza jego warstwy. Przycisk Wróć do planu pozostaje jawną zmianą widoku.
+- Wymiary szerokości mają własne nadpisania: skala 1, tekst 0,25 m, strzałki 0,15 m, odsunięcie 0,60 m, wystawanie linii pomocniczej 0,12 m i zapis do 0,01 m. Nie dziedziczą ogromnych rozmiarów z bieżącego stylu DWG. Styl użytkownika nie jest globalnie zmieniany.
+- Punkty aproksymacji klotoidy/łuku w źródłowej polilinii i techniczne próbki wygenerowanych krawędzi nie są wszystkie traktowane jako obowiązkowe przekroje modelu. Zachowane są punkty charakterystyczne geometrii, reguł, szerokości, profilu i zakresów elementów. Podział modelu pozostaje zależny od maksymalnego kroku i tolerancji cięciwy; bardziej wymagająca geometria może zagęścić go dodatkowo. Kontrolne węzły szerokości, w tym poszerzeń, są zachowywane.
+- Nowy przycisk Model i wymiary w grupie Model 3D pozwala ustawić powyższe parametry. Zapis rozmiaru wymiarów odświeża opisy, a zmiana próbkowania oznacza model do przebudowy na żądanie.
+- Zawiera poprawkę 0.31: forceOpenOnLockedLayer tylko dla własnych starych obiektów kolorowej reprezentacji osi. Rzeczywisty log potwierdził tę przyczynę błędu po ruchu PI i przy uruchomieniu Skarpy do terenu.
 
-Poprawka otwiera do zapisu z forceOpenOnLockedLayer wyłącznie stare obiekty własnej reprezentacji osi, wskazane przez RS_AXIS_VISUAL_INDEX_30. Nie odblokowuje globalnie warstw użytkownika i nie zmienia polityki ochrony reprezentacji. Nowa geometria nadal powstaje na własnej warstwie, a źródło pozostaje edytowalne przez Uchwyty osi.
+Zamknij cały BricsCAD, zainstaluj 0.32, otwórz kopię DWG i wybierz Aktualizuj plan, a potem Utwórz / odśwież 3D. Jeśli chcesz rzadszej siatki, ustaw krok i tolerancję w Model i wymiary. To ustawienia modelu wynikowego, a nie dokładności osi projektowej.
 
-Zmieniono także nazwę przycisku na Dodaj łuk / krzywe przejściowe. Pozostały przebieg pracy z wersji 0.30 jest zachowany.
+Weryfikacja obejmuje kompilację przeciw BricsCAD V26 i testy geometryczne. Nowe testy próbkowania sprawdzają zachowanie granic, krok maksymalny, błąd cięciwy, brak konieczności dziedziczenia gęstej siatki widoku osi oraz rzeczywiste zmniejszenie liczby próbek po zwiększeniu tolerancji. Nie potwierdzono natywnie na rysunku użytkownika zachowania widoku, wyglądu wymiarów i naprawy blokady warstwy. Szczegółowy opis przebiegu pracy: wersja 0.30.
 
-Instalacja: zapisz DWG, zamknij cały BricsCAD, zainstaluj 0.31 i otwórz rysunek. Aktualizuj plan powinno dokończyć oczekującą edycję PI, ponieważ program porównuje faktyczne współrzędne z zapisanymi. Następnie można edytować przez Uchwyty osi. Model 3D nadal przeliczany na żądanie.
-
-Poprawka wynika z rzeczywistego stosu błędu, nie z przypuszczenia. Kompilacja oraz dotychczasowe testy obliczeniowe przechodzą; ten natywny przypadek na DWG użytkownika nie został jeszcze ponownie wykonany. Nie przedstawiamy testów poza CAD jako potwierdzenia działania blokad warstw i transakcji w BricsCADzie.
-
-Szczegółowy opis funkcji: wydanie 0.30. Log modułu pozostaje startup-30.log; moduł RoadSketch.Spatial30. GitHub: tag v0.31, ZKDrogi-Setup-0.31.exe.
-
+Tag GitHub v0.32, instalator ZKDrogi-Setup-0.32.exe. Moduł RoadSketch.Spatial30, log startup-30.log.
