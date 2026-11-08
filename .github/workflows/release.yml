@@ -36,6 +36,7 @@ jobs:
           if ($LASTEXITCODE -eq 0) { Write-Host "Wydanie $tag już istnieje; zwiększ numer kolejnego instalatora."; exit 0 }
           $checksum = $latest.File.FullName + '.sha256'
           ((Get-FileHash $latest.File.FullName -Algorithm SHA256).Hash.ToLowerInvariant() + '  ' + $latest.File.Name) | Set-Content $checksum -Encoding ascii
-          gh release create $tag $latest.File.FullName $checksum --repo $env:GH_REPO --target $env:GITHUB_SHA --title "ZK Drogi $tag" --notes "Instalator ZK Drogi $tag. Zamknij BricsCAD przed ręczną instalacją. Aktualizator w dodatku pobierze nowszą wersję automatycznie i poczeka na zamknięcie CAD." --latest
+          gh release create $tag $latest.File.FullName $checksum --repo $env:GH_REPO --target $env:GITHUB_SHA --title "ZK Drogi $tag" --notes-file ZMIANY-AKTUALNE.md --latest
           if ($LASTEXITCODE -ne 0) { throw 'Publikacja wydania nie powiodła się.' }
+
 
