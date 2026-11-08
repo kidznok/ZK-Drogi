@@ -1,16 +1,16 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.38 — manipulatory na pasmach
-- Trójkąty procentowe i żółte strzałki skarp z wypełnionym grotem.
-- Tekst z natywną maską tła jako wielowierszowy, odblokowany atrybut bloku: osobny uchwyt tekstu, uchwyt położenia symbolu i linia odniesienia podążająca za tekstem.
-- Strzałki pośrodku pasma skarpy; opisy podniesione nad końce powierzchni w widoku z góry i przeniesione na wierzch kolejności rysowania.
-- Ruch napisu nie zmienia kilometrażu. Ruch symbolu jest odróżniany od przeniesienia napisu przez blok; zapisane osobno odsunięcia tekstu.
-- Przycisk Manipulatory: skala opisów, wysokość tekstu i długość strzałki w mm na wydruku. Domyślnie 1:1000 / 2,5 mm / 3,5 mm; jednostki modelu: metry.
-- Poprawione pierwsze położenie napisu procentowego bez podwójnego dodawania współrzędnych początku.
+## 0.39 — elementy rozpoznawane z warstw
+- Ustawienia → Mapowanie warstw: wzorzec warstwy, typ elementu z listy, odniesienie, spadek/uskok i podążanie w planie.
+- Automatyczne przypisanie po dorysowaniu otwartej polilinii lub przeniesieniu nieprzypisanej polilinii na warstwę. Rozpoznawanie następuje po zakończeniu polecenia, bez modelowania 3D podczas rysowania.
+- D01_KRAW_P rozpoznawany jako krawężnik z odniesieniem do D01_JEZ_P i uskokiem +0,12 m. Dobór po stronie oraz pełnym zakresie kilometrażu. Brak jednoznacznego odniesienia daje komunikat i wymaga Analizuj warstwy.
+- Zmiana całej zarejestrowanej krawędzi jezdni na warstwę krawężnika zachowuje bazowe spadki i dodaje uskok.
+- Przyciski Ustawienia, Analizuj warstwy, Utwórz warstwy i ręczny Krawężnik.
+- BREAK istniejącej próbkowanej krawędzi z siecią zależności NIE jest w pełni obsługiwany. Zmiana liczby jej punktów zatrzymuje aktualizację. Do lokalnego krawężnika narysuj osobną krótką polilinię zamiast przecinać powiązaną krawędź.
 
-Po instalacji: Aktualizuj plan → Przelicz skarpy. Zaznacz blok i korzystaj z osobnych uchwytów symbolu oraz napisu. Początek i koniec skarpy pozostają granicami zakresu.
+Po instalacji: Ustawienia → Mapowanie warstw → Utwórz warstwy → dorysuj krótki krawężnik na D01_KRAW_L/P. Model 3D przelicz osobno.
 
-346 testów obliczeniowych i 12 aktualizatora przechodzi. Kompilacja z API BricsCAD V26 bez błędów. Maski i uchwytów tej wersji nie zweryfikowano jeszcze w natywnym CAD. Szczegóły: ZMIANY-AKTUALNE.md.
+Kompilacja z API V26 i testy obliczeń/warstw/routingu wstążki. Nowego przepływu zdarzeń nie zweryfikowano jeszcze w natywnym CAD. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją. Wymagany BricsCAD V26 x64 i .NET Desktop Runtime 8.0.33+ z linii 8. Wersja: 0.38.
+Zamknij wszystkie sesje BricsCAD przed instalacją. Wymagany V26 x64 i .NET Desktop Runtime 8 z linii 8. Wersja: 0.39.

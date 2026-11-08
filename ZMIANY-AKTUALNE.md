@@ -1,24 +1,24 @@
-# ZK Drogi 0.38 — manipulatory na pasmach
+# ZK Drogi 0.39 — rozpoznawanie elementów z warstw
 
-Wdrożenie wybranego wariantu: trójkąt dla spadku procentowego i wypełniona strzałka dla proporcji skarpy.
+## Ustawienia i rysowanie
+Dodano do wstążki Ustawienia, Analizuj warstwy i Utwórz warstwy. W Ustawienia → Mapowanie warstw określasz wzorzec warstwy, typ elementu (lista wyboru), warstwę odniesienia, podążanie w planie oraz wartość spadku / uskoku.
 
-- Teksty REGULA / SKARPA są wielowierszowymi atrybutami bloków z natywną maską tła, zależną od tła CAD (BackgroundFill + UseBackgroundColor). Maska jest częścią napisu i podąża za nim. Linia od symbolu do napisu aktualizuje się po jego odsunięciu.
-- Atrybut ma LockPositionInBlock=false. Blok ma uchwyt położenia symbolu, a napis osobny uchwyt atrybutu. Przesunięcie napisu nie zmienia kilometrażu ani wartości; przesunięcie symbolu zmienia kilometraż wewnątrz zakresu.
-- Strzałka skarpy znajduje się w środku jej pasma pomiędzy źródłem a dowiązaniem do terenu. Ma wypełniony grot, kolor żółty i widoczną grubość. Przy wykopie kierunek wskazuje niższą krawędź drogi, przy nasypie — niższy teren.
-- Domyślne położenie napisu skarpy jest liczone od środka pasma. Ręczne odsunięcie tekstu zapisuje się osobno. Zwykły ruch bloku i jego atrybutu nie jest błędnie rozpoznawany jako ręczna zmiana odsunięcia tekstu.
-- Rozpoznawanie przesunięcia symbolu odbywa się w XY; wysokość adnotacji nie zmienia kilometrażu. Oś/krawędź pozostaje źródłem odniesienia mimo przesunięcia punktu wstawienia strzałki na środek skarpy.
-- Adnotacje są podnoszone ponad wysokość końców opisywanego pasa i przesuwane na wierzch kolejności rysowania, aby nie chowały się pod powierzchnią 3D w widoku z góry.
-- Przycisk „Manipulatory” (`RSMANIPULATORS`) pozwala ustawić skalę opisów, wysokość tekstu i długość strzałki w mm na wydruku. Rysunek jest prowadzony w metrach. Domyślnie 1:1000, tekst 2,5 mm i symbol 3,5 mm (odpowiednio 2,5 m i 3,5 m w modelu). Jest to własna skala opisów, nie automatycznie adnotatywny blok CAD.
-- Poprawione pierwsze położenie napisu procentowego — początek układu nie jest doliczany drugi raz.
+Domyślna reguła: D01_KRAW_* → Krawężnik, odniesienie D01_JEZ_*, uskok +0,12 m. Końcówka L/P jest przenoszona do wzorca odniesienia: D01_KRAW_P szuka D01_JEZ_P.
 
-## Po aktualizacji
-Zamknij wszystkie sesje BricsCAD przed instalacją. Następnie wybierz Aktualizuj plan, a potem Przelicz skarpy, aby wyznaczyć rzeczywistą szerokość i środek skarp. Dostosuj wielkość w przycisku Manipulatory do skali opracowania.
+Gdy włączone jest automatyczne rozpoznawanie, dorysowana otwarta polilinia lub nieprzypisana polilinia przeniesiona na pasującą warstwę jest analizowana po zakończeniu polecenia. Program rozpoznaje zakres kilometrażu, stronę i jednoznaczne odniesienie pokrywające cały fragment, tworzy element i regułę wysokości. W trakcie rysowania i przeciągania nie powstaje model 3D. Powierzchnie pozostają do jawnego przeliczenia.
 
-Zaznacz blok. Uchwytem symbolu przesuwasz jego kilometraż; osobnym uchwytem napisu odsuwasz sam tekst i jego maskę. Początek/koniec skarpy pozostają granicami zakresu — zmieniasz je parametrami, nie przesuwaniem granicznego uchwytu. Po zmianie kilometrażu/proporcji powierzchnię skarpy przelicz jawnie. Samo odsunięcie napisu nie wymaga przeliczania terenu.
+Brak jednoznacznego odniesienia lub pasujące sprzeczne reguły powodują komunikat i pominięcie polilinii; Analizuj warstwy pozwala wskazać odniesienie ręcznie. Podkłady i reguły nieaktywne są pomijane. Można wyłączyć automatyczne rozpoznawanie checkboxem w Mapowaniu warstw.
 
-Zachowane są poprawki 0.37: PPM profilu, dziedziczenie proporcji po usunięciu wewnętrznego manipulatora i brak nakładających się skarp tego samego źródła/strony.
+## Zmiana typu istniejącego elementu
+Przeniesienie całej zarejestrowanej krawędzi jezdni na warstwę krawężnika zachowuje dotychczasową bazową zależność wysokościową i dodaje uskok. Przykład: rzędna osi 100 m, szerokość 3,5 m i spadek -2% → krawędź 99,93 m; po zmianie na krawężnik +0,12 m → 100,05 m. Zachowane są wcześniejsze zmiany spadków i ich interpolacja.
+
+## Ważne: przerwanie polilinii
+Ta wersja NIE zapewnia automatycznego przepinania całej sieci poboczy/chodników po BREAK istniejącej, próbkowanej krawędzi. Zmiana liczby jej punktów jest wykrywana, aktualizacja zatrzymywana, a nieaktualny model ukrywany. Należy cofnąć takie przerwanie i narysować osobną krótką polilinię krawężnika. Samo mapowanie warstw nie zastępuje podziału logicznych zależności.
+
+## Dostęp ręczny
+Zachowano przycisk Krawężnik (RSADDCURB) w grupie 2. Krawędzie i spadki. Służy do ręcznego przypisania własnej krótkiej polilinii, odniesienia i uskoku.
 
 ## Weryfikacja
-Kompilacja względem API BricsCAD V26, testy obliczeń wielkości/położeń, rozdzielenia ruchu tekstu i symbolu oraz dotychczasowe testy projektu. Rzeczywiste właściwości MTextAttribute/BackgroundFill/LockPositionInBlock sprawdzono w lokalnym API. Wyglądu maski i zachowania uchwytów tej wersji nie zweryfikowano jeszcze wewnątrz natywnego BricsCAD-a.
+Testy doboru L/P, krótkich zakresów, niejednoznacznych odniesień, zachowania rzędnej bazowej i uskoku oraz istniejących funkcji. Kompilacja z API BricsCAD V26; nowego automatycznego przepływu zdarzeń nie zweryfikowano jeszcze w natywnym CAD.
 
-`UpdateMTextAttribute` i niezależne położenie atrybutu: [Bricsys .NET API](https://developer.bricsys.com/bricscad/help/en_US/V25/DevRef/source/html/938961a5-76b6-ed3a-2e2e-d50c220a2727.htm).
+Zamknij wszystkie sesje BricsCAD przed instalacją. Wersja produktu: 0.39.
