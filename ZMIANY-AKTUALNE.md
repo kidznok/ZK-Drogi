@@ -1,28 +1,25 @@
-# ZK Drogi 0.35 — edytor niwelety: droga i rowy
+# ZK Drogi 0.36 — zapis profilu, PPM i czytelna geometria
 
-- Osobny edytor WPF: wspólny wykres drogi i rowów, wybór aktywnej niwelety, pasma rzędnych projektowanych, terenu, pochylenia i geometrii.
-- Edycja PVI w tabeli, polami parametrów oraz przeciąganiem. Dodawanie/usuwanie wewnętrznych PVI, cofanie zmian w oknie; zbliżanie kółkiem myszy i przesuwanie widoku z Shift.
-- Kołowe łuki pionowe zadawane promieniem R; kontrola kolejności PVI, długości stycznych i nachodzenia łuków. Z, i, T, długość łuku, PŁ/KŁ w panelu wybranego PVI.
-- Niezależna niweleta każdego zarejestrowanego rowu. Użyj „Dodaj rów”, wskaż własną polilinię i nazwij ją, potem otwórz edytor.
-- „Zastosuj i aktualizuj DWG” zapisuje PVI i promienie w DWG oraz odświeża wykres z pasmami. To samo obliczenie wysokości obsługuje drogę, rowy i model 3D; PŁ/KŁ są stacjami charakterystycznymi.
-- „Teren do profilu”: odczyt 3DFACE z wybranego Xrefa i warstwy, z krokiem próbkowania. Braki pokrycia nie są łączone przez długie luki.
-- Istniejąca niweleta poliliniowa jest wczytywana do edytora. DWG zachowuje niewidoczny profil zgodności. Publikacja osi zawiera również dokładne PVI i promienie.
-- Modyfikacje w oknie nie przebudowują CAD podczas przeciągania. Po zatwierdzeniu wybierz „Utwórz / odśwież 3D”, następnie „Przelicz skarpy”. Rzutnia pozostaje bez zmian.
+## Naprawa „Zastosuj i aktualizuj DWG”
+Log użytkownika wskazywał `eDegenerateGeometry` w `Polyline.RemoveVertexAt` podczas zapisu profilu. Stary kod usuwał wszystkie punkty istniejącego profilu przed ich ponownym wstawieniem. Teraz zmniejsza liczbę wierzchołków tylko do docelowej liczby (minimum dwa), dopisuje brakujące i aktualizuje współrzędne/bulge. Zachowuje uchwyt profilu.
 
-## Kolejność pracy
-1. Wskaż oś i utwórz krawędzie/pobocza.
-2. Opcjonalnie „Dodaj rów”: wskaż polilinię rowu, odniesienie i nazwę. Powtórz dla drugiej strony.
-3. Opcjonalnie „Teren do profilu”: Xref z 3DFACE, warstwa, krok.
-4. „Edytor niwelety”: przy pierwszym otwarciu wskaż miejsce wykresu DWG. Wybierz Drogę lub konkretny rów.
-5. Ustaw PVI i R. R=0 oznacza załamanie. Skrajne kilometraże odpowiadają zakresowi elementu w planie.
-6. Zastosuj, potem odśwież 3D i skarpy.
+Zapis pozostaje transakcyjny. Jeżeli wystąpi inny błąd CAD, transakcja jest cofana, a edytor otwiera się ponownie z zachowanymi PVI i czytelnym błędem zamiast porzucać zmiany.
 
-## Zakres i weryfikacja
-- Łuki kołowe pionowe; brak parabol oraz automatycznej weryfikacji przepisów/WR-D.
-- Teren jest zapisanym przekrojem próbkowanym. Po zmianie osi lub Xrefa pobierz go ponownie; zmiana osi usuwa nieaktualne próbki.
-- Nie jest to edycja niwelety uchwytami na wynikowym wykresie DWG. PVI edytuje się w osobnym oknie.
-- Kompilacja oraz testy geometrii i rzeczywistych kontrolek WPF bez interakcji z ekranem. Integracja w natywnym BricsCAD V26 wymaga jeszcze sprawdzenia na kopii DWG.
-- Zmiany dotyczą profilu; nie zawierają poprawek wcześniejszego zgłoszenia o nakładających się skarpach i położeniu ich etykiet.
+## Dodawanie załomu pod PPM
+Kliknij prawym przyciskiem na aktywnej niwelecie → „Dodaj załom tutaj”. Nowy PVI ma kilometraż kliknięcia i rzędną z rzeczywistego profilu. Na łuku kołowym program dzieli krzywą na dwa styczne łuki o tym samym R i dodaje punkt na krzywej; to wymaga dodatkowych PVI stycznych, ale zachowuje dotychczasowy kształt. Cofnij przywraca całą operację. Kliknięcie w istniejący PVI wybiera go zamiast tworzyć duplikat.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją. Wymagany BricsCAD V26 x64 i .NET Desktop Runtime 8. Wersja produktu: 0.35.
+## Siatka i kolor łuków
+- Okrągłe, adaptacyjne kroki osi X/Z (np. 20 m i 1 m), niezależne od sztucznego podziału widoku na osiem części.
+- Kilometraż 0+020, 0+040 itd., opis kroku siatki i rzeczywistego powiększenia pionowego.
+- Pion automatyczny lub ×5 / ×10 / ×20. Przy pełnym widoku stałe powiększenie dopasowuje zakres X tak, aby pokazać cały profil. Kółko myszy zbliża, Shift+kółko przesuwa, „Cały profil” przywraca zakres.
+- Łuki pionowe są żółte, z poprzecznymi znacznikami i opisami PŁ/KŁ. Dotyczy edytora i wynikowego profilu w DWG. Odcinki proste zachowują kolor niwelety.
 
+## Jak dodać rów
+Narysuj otwartą polilinię w planie → „Dodaj rów” (`RSADDDITCH`) → wskaż polilinię, odniesienie i nazwę np. Rów L → otwórz „Edytor niwelety” i wybierz ten rów z listy. Niweleta rowu jest niezależna od drogi.
+
+## Weryfikacja i zakres
+Testy obejmują zachowanie próbek profilu przy wielokrotnych zmianach liczby wierzchołków z ograniczeniem minimum dwóch, dokładność podziału łuków, regularne podziałki, PPM na rzeczywistych kontrolkach WPF, powiększenie pionowe oraz żółte znaczniki PŁ/KŁ. To nie zastępuje testu zapisu w natywnym BricsCAD V26; nowej wersji nie sprawdzono jeszcze wewnątrz CAD. Błąd wersji 0.35 potwierdzono logiem użytkownika.
+
+Profil DWG aktualizuje się po Zastosuj. Model 3D i skarpy wymagają własnego jawnego przeliczenia. Teren w profilu jest próbkowanym zapisem z Xrefa; po zmianie osi/Xrefa pobierz go ponownie. Łuki pionowe są kołowe, bez parabol i kontroli normowej.
+
+Zamknij wszystkie sesje BricsCAD przed instalacją. Numer produktu: 0.36.
