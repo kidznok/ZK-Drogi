@@ -1,13 +1,14 @@
-# ZK Drogi 0.32 — rzutnia, wymiary i podział modelu
+# ZK Drogi 0.33 — naprawa okna aktualizacji
 
-- Utwórz / odśwież 3D nie wywołuje już zmiany kierunku, targetu, zoomu, środka ani skręcenia bieżącej rzutni. Przelicza model i włącza jego warstwy. Przycisk Wróć do planu pozostaje jawną zmianą widoku.
-- Wymiary szerokości mają własne nadpisania: skala 1, tekst 0,25 m, strzałki 0,15 m, odsunięcie 0,60 m, wystawanie linii pomocniczej 0,12 m i zapis do 0,01 m. Nie dziedziczą ogromnych rozmiarów z bieżącego stylu DWG. Styl użytkownika nie jest globalnie zmieniany.
-- Punkty aproksymacji klotoidy/łuku w źródłowej polilinii i techniczne próbki wygenerowanych krawędzi nie są wszystkie traktowane jako obowiązkowe przekroje modelu. Zachowane są punkty charakterystyczne geometrii, reguł, szerokości, profilu i zakresów elementów. Podział modelu pozostaje zależny od maksymalnego kroku i tolerancji cięciwy; bardziej wymagająca geometria może zagęścić go dodatkowo. Kontrolne węzły szerokości, w tym poszerzeń, są zachowywane.
-- Nowy przycisk Model i wymiary w grupie Model 3D pozwala ustawić powyższe parametry. Zapis rozmiaru wymiarów odświeża opisy, a zmiana próbkowania oznacza model do przebudowy na żądanie.
-- Zawiera poprawkę 0.31: forceOpenOnLockedLayer tylko dla własnych starych obiektów kolorowej reprezentacji osi. Rzeczywisty log potwierdził tę przyczynę błędu po ruchu PI i przy uruchomieniu Skarpy do terenu.
+Przyczyna potwierdzona testem konstruktora starego okna: System.IO.IOException, nie można zlokalizować assets/zkdrogi.ico. GraphicTheme.Apply próbował ustawić ikonę okna z zasobu, którego nie dodano do projektu menedżera. Proces kończył się przed pokazaniem okna; użytkownik widział brak reakcji po kliknięciu. W CrashDumps istniały świeże zrzuty ZKDrogi.Manager.exe.
 
-Zamknij cały BricsCAD, zainstaluj 0.32, otwórz kopię DWG i wybierz Aktualizuj plan, a potem Utwórz / odśwież 3D. Jeśli chcesz rzadszej siatki, ustaw krok i tolerancję w Model i wymiary. To ustawienia modelu wynikowego, a nie dokładności osi projektowej.
+- Ikona okna korzysta teraz z istniejącego zasobu ZK-logo.png.
+- Dodano obsługę błędów startu i wyjątków UI: komunikat oraz %LOCALAPPDATA%/ZKProjekt/Drogi/logs/manager-startup.log zamiast milczącego zakończenia.
+- Polecenie ZKDROGIUPDATE uruchamia konkretny EXE bez skojarzeń powłoki, z poprawnym katalogiem roboczym. Raportuje start i wykrywa szybkie zakończenie procesu kodem błędu.
+- Funkcje i poprawki geometrii z 0.32 pozostają bez zmian.
 
-Weryfikacja obejmuje kompilację przeciw BricsCAD V26 i testy geometryczne. Nowe testy próbkowania sprawdzają zachowanie granic, krok maksymalny, błąd cięciwy, brak konieczności dziedziczenia gęstej siatki widoku osi oraz rzeczywiste zmniejszenie liczby próbek po zwiększeniu tolerancji. Nie potwierdzono natywnie na rysunku użytkownika zachowania widoku, wyglądu wymiarów i naprawy blokady warstwy. Szczegółowy opis przebiegu pracy: wersja 0.30.
+Test regresyjny ManagerUiChecks: przed poprawką FAIL z brakującą ikoną; po poprawce PASS, zasoby i konstruktor poprawne, natywne okno WPF zostało pokazane i zamknięte. Ten test nie wykonuje pobierania z GitHuba. Testy transportu/logiki aktualizatora są oddzielne. Nie jest to potwierdzenie działania skarpy ani innych funkcji CAD.
 
-Tag GitHub v0.32, instalator ZKDrogi-Setup-0.32.exe. Moduł RoadSketch.Spatial30, log startup-30.log.
+Zainstaluj 0.33 ręcznie przy zamkniętym BricsCADzie — stary menedżer nie potrafi pokazać okna, więc nie da się skorzystać z jego przycisku aktualizacji. Po instalacji uruchom CAD i wybierz Program → Aktualizacja programu.
+
+GitHub: v0.33, ZKDrogi-Setup-0.33.exe. Wymagany .NET Desktop Runtime 8.0.33+ z linii 8.
