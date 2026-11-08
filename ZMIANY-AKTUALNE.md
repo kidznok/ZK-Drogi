@@ -1,28 +1,14 @@
-# ZK Drogi 0.30 — prosty przebieg pracy
+# ZK Drogi 0.31 — aktualizacja osi po ruchu PI
 
-## 1. Oś
-W pustym DWG narysuj otwartą polilinię, a następnie Wskaż oś. Kierunek polilinii wyznacza rosnący kilometraż. Proste są czerwone, łuki żółte, a rozpoznane klotoidy pomarańczowe; wzór kreska-kropka. Rysowana jest powiązana reprezentacja na zablokowanej warstwie ZKD_GEOMETRIA_OSI. Źródło pozostaje edytowalne przez Uchwyty osi. Dla łuków istniejącej polilinii zachowane są oryginalne bulge; krzywe przejściowe są identyfikowane z parametrów programu, nie odgadywane z dowolnej gęstej polilinii. Geometria osi służy do edycji PI, R i L. Nowa reprezentacja jest odświeżana po zmianie źródła, nie po każdej zmianie spadku.
+Log użytkownika potwierdził: Axis PI build complete, następnie Teigha.Runtime.Exception: Layer is locked w DrawAxisTypes. Błąd przy usuwaniu starej, kolorowej reprezentacji powodował rollback całej aktualizacji, więc wynik osi nie podążał za przesuniętym PI. Dotyczył również zmian geometrii przez okno i odświeżania po utworzeniu profilu. Kolejny rzeczywisty stos potwierdził tę samą ścieżkę przy AddDaylight → UpdatePlan → DrawAxisTypes, przed wyborem terenu skarpy.
 
-## 2. Krawędzie i spadki
-Domyślne reguły otwierają małe okno z wartościami oś → jezdnia -2% i jezdnia → pobocze -8%. W nowym projekcie są to wartości początkowe; w istniejącym DWG zachowujemy jego ustawienia, które można tu zmienić. Nowe wartości nie zmieniają już istniejących reguł wysokościowych.
-Utwórz krawędzie: szerokości lewa/prawa, spadek jezdni, opcjonalne pobocza z szerokością i spadkiem. Każdy element dostaje trójkąty na początku i końcu. Tekst można odsuwać niezależnie. Dodaj spadek tworzy kolejną regułę kilometrażową. Model 3D nie jest przebudowywany przy każdym ruchu. Poszerzenia WR-D są opcjonalne; bez wybranego pojazdu początkowo wyłączone.
+Poprawka otwiera do zapisu z forceOpenOnLockedLayer wyłącznie stare obiekty własnej reprezentacji osi, wskazane przez RS_AXIS_VISUAL_INDEX_30. Nie odblokowuje globalnie warstw użytkownika i nie zmienia polityki ochrony reprezentacji. Nowa geometria nadal powstaje na własnej warstwie, a źródło pozostaje edytowalne przez Uchwyty osi.
 
-## 3. Profil
-Utwórz profil: wskazujesz położenie niwelety, edytujesz jej polilinię. Skala pionowa x10, początkowa wysokość pochodzi z parametrów osi. Nie jest to automatyczny profil terenu istniejącego.
+Zmieniono także nazwę przycisku na Dodaj łuk / krzywe przejściowe. Pozostały przebieg pracy z wersji 0.30 jest zachowany.
 
-## 4. Model 3D
-Utwórz / odśwież 3D przelicza geometrię wysokościową osi i elementów. Wróć do planu przywraca widok do edycji.
+Instalacja: zapisz DWG, zamknij cały BricsCAD, zainstaluj 0.31 i otwórz rysunek. Aktualizuj plan powinno dokończyć oczekującą edycję PI, ponieważ program porównuje faktyczne współrzędne z zapisanymi. Następnie można edytować przez Uchwyty osi. Model 3D nadal przeliczany na żądanie.
 
-## 5. Skarpy
-Skarpa do terenu: źródłowa polilinia (np. pobocze), początek i koniec zakresu, Xref terenu oraz jego warstwa 3DFACE, proporcja 1:n (domyślnie 1:1,5), krok, zasięg i strona. Powstaje powierzchnia oraz blokowe trójkąty z atrybutem SKARPA na początku i końcu zakresu. Układy i jednostki muszą być zgodne. Teren nadal musi zawierać 3DFACE, a nie raster lub obiekt proxy.
-Zmień proporcję na odcinku: wskaż trójkąt skarpy, dwa punkty zakresu na planie i np. 1:2. Na tym przedziale działa nowa wartość, a za końcem powraca wcześniejsza. Powstają manipulatory granic. Wewnętrzny trójkąt można przesunąć uchwytem wzdłuż źródła (bez przekraczania sąsiadów); zmienia kilometraż granicy. Manipulatory końców są kotwami zakresu i wracają na miejsce przy przeciąganiu. Atrybut SKARPA przyjmuje 1:2 lub 2; można osobno przesuwać tekst. Edycja wartości końcowego manipulatora zmienia ostatni aktywny przedział; edycja początkowego — pierwszy. Dodatnia wartość oznacza proporcję pion:poziom, nie procent.
-Po edycji atrybutu/uchwytu użyj Przelicz skarpy. Nie wykonujemy ciężkiego odczytu terenu po każdym ruchu. Dodanie przedziału przyciskiem przelicza wybraną skarpę od razu. Przejście proporcji jest skokowe, bez interpolacji; w przekroju granicznym tworzone są dwie strony bez sztucznej powierzchni łączącej skok. Braki dowiązania nie są mostkowane powierzchnią.
+Poprawka wynika z rzeczywistego stosu błędu, nie z przypuszczenia. Kompilacja oraz dotychczasowe testy obliczeniowe przechodzą; ten natywny przypadek na DWG użytkownika nie został jeszcze ponownie wykonany. Nie przedstawiamy testów poza CAD jako potwierdzenia działania blokad warstw i transakcji w BricsCADzie.
 
-## Program
-Aktualizacja programu otwiera menedżer ustawień/aktualizacji z repozytorium kidznok/ZK-Drogi. Na głównej wstążce pozostają tylko opisane etapy. Inne polecenia są zachowane do zgodności starszych DWG, ale nie zajmują wstążki.
-
-## Instalacja i weryfikacja
-Zamknij cały BricsCAD i uruchom instalator 0.30. Nie przeładowuj DLL do starej sesji. Przed próbą zachowaj kopię DWG. Nowy moduł RoadSketch.Spatial30 ma odrębną nazwę od starego silnika. Zachowuje odczyt zapisanych danych. Log: %LOCALAPPDATA%/ZKProjekt/Drogi/logs/startup-30.log.
-Kompilacja przeciw SDK BricsCAD V26 bez błędów. Testy obejmują reguły przedziałowe, powrót poprzedniej proporcji, przedziały zagnieżdżone, zapis identyfikatorów oraz kolejność i kompletność nowej wstążki. Nie potwierdzono jeszcze natywnie nowych bloków, stylu linii, uchwytów i Undo w BricsCADzie. Wcześniejsza awaria tworzenia poboczy nadal wymaga weryfikacji na rysunku użytkownika; przebudowa nie jest dowodem usunięcia jej przyczyny.
-
+Szczegółowy opis funkcji: wydanie 0.30. Log modułu pozostaje startup-30.log; moduł RoadSketch.Spatial30. GitHub: tag v0.31, ZKDrogi-Setup-0.31.exe.
 

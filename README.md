@@ -1,7 +1,7 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-Wersja 0.30 upraszcza wstążkę do przebiegu: oś → krawędzie i spadki → profil → model 3D → skarpy. Osobny przycisk Aktualizacja programu otwiera menedżer GitHub Releases.
+Wersja 0.31 usuwa potwierdzony w logu błąd „Layer is locked” przy odświeżaniu kolorowej reprezentacji osi, który blokował przesuwanie PI oraz uruchomienie skarpy. Działanie poprawki na rysunku użytkownika wymaga jeszcze potwierdzenia. Wersja 0.30 upraszcza wstążkę do przebiegu: oś → krawędzie i spadki → profil → model 3D → skarpy. Osobny przycisk Aktualizacja programu otwiera menedżer GitHub Releases.
 
 - Wskazanie własnej osi, oznaczenie prostych na czerwono, łuków na żółto i klotoid programu na pomarańczowo, kreska-kropka.
 - Krawędzie i opcjonalne pobocza z domyślnymi regułami -2% / -8% oraz manipulatorami na końcach.
@@ -14,3 +14,4 @@ Zamknij cały BricsCAD przed instalacją. Wymagany .NET Desktop Runtime 8.0.33 l
 
 ## Publikowanie
 Dodanie numerowanego ZKDrogi-Setup-NUMER.exe do main uruchamia workflow, który sprawdza ProductVersion, tworzy SHA-256 i publikuje stabilne wydanie jako Latest. Numeracja: 0.30, 0.31 itd. Nie zmieniaj samej nazwy starego EXE.
+
