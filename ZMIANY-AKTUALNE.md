@@ -1,20 +1,24 @@
-# ZK Drogi 0.37 — PPM bez utraty wykresu
+# ZK Drogi 0.38 — manipulatory na pasmach
 
-Naprawa błędu „Sequence contains no elements” po dodaniu załomu prawym przyciskiem w edytorze niwelety.
+Wdrożenie wybranego wariantu: trójkąt dla spadku procentowego i wypełniona strzałka dla proporcji skarpy.
 
-Przyczyna: kod najpierw opróżniał kolekcję PVI powiązaną z tabelą, następnie dopisywał punkty. WPF mógł odświeżyć zaznaczenie i wykres w środku tej operacji. Dla jedynej niwelety dane były chwilowo puste; wyjątek przerywał dodawanie i pozostawiał pusty wykres.
+- Teksty REGULA / SKARPA są wielowierszowymi atrybutami bloków z natywną maską tła, zależną od tła CAD (BackgroundFill + UseBackgroundColor). Maska jest częścią napisu i podąża za nim. Linia od symbolu do napisu aktualizuje się po jego odsunięciu.
+- Atrybut ma LockPositionInBlock=false. Blok ma uchwyt położenia symbolu, a napis osobny uchwyt atrybutu. Przesunięcie napisu nie zmienia kilometrażu ani wartości; przesunięcie symbolu zmienia kilometraż wewnątrz zakresu.
+- Strzałka skarpy znajduje się w środku jej pasma pomiędzy źródłem a dowiązaniem do terenu. Ma wypełniony grot, kolor żółty i widoczną grubość. Przy wykopie kierunek wskazuje niższą krawędź drogi, przy nasypie — niższy teren.
+- Domyślne położenie napisu skarpy jest liczone od środka pasma. Ręczne odsunięcie tekstu zapisuje się osobno. Zwykły ruch bloku i jego atrybutu nie jest błędnie rozpoznawany jako ręczna zmiana odsunięcia tekstu.
+- Rozpoznawanie przesunięcia symbolu odbywa się w XY; wysokość adnotacji nie zmienia kilometrażu. Oś/krawędź pozostaje źródłem odniesienia mimo przesunięcia punktu wstawienia strzałki na środek skarpy.
+- Adnotacje są podnoszone ponad wysokość końców opisywanego pasa i przesuwane na wierzch kolejności rysowania, aby nie chowały się pod powierzchnią 3D w widoku z góry.
+- Przycisk „Manipulatory” (`RSMANIPULATORS`) pozwala ustawić skalę opisów, wysokość tekstu i długość strzałki w mm na wydruku. Rysunek jest prowadzony w metrach. Domyślnie 1:1000, tekst 2,5 mm i symbol 3,5 mm (odpowiednio 2,5 m i 3,5 m w modelu). Jest to własna skala opisów, nie automatycznie adnotatywny blok CAD.
+- Poprawione pierwsze położenie napisu procentowego — początek układu nie jest doliczany drugi raz.
 
-Teraz nowy, sprawdzony zestaw PVI jest budowany poza tabelą i podmieniany jednorazowo. Ta sama poprawka obejmuje Cofnij i przywracanie punktów po nieprawidłowym przeciągnięciu. Odświeżanie ignoruje stan przejściowy i zawsze przywraca flagę blokady zdarzeń.
+## Po aktualizacji
+Zamknij wszystkie sesje BricsCAD przed instalacją. Następnie wybierz Aktualizuj plan, a potem Przelicz skarpy, aby wyznaczyć rzeczywistą szerokość i środek skarp. Dostosuj wielkość w przycisku Manipulatory do skali opracowania.
 
-Test regresji obejmuje jedną niweletę drogi (bez rowów), prawy przycisk, zdarzenia powiązanej kolekcji oraz rzeczywiście załadowane, niewidoczne okno WPF. Osobny kontrolowany test starego Clear/Add odtwarza błąd. Dotychczasowe testy kilku niwelet nie obejmowały przypadku jedynej pustej kolekcji.
+Zaznacz blok. Uchwytem symbolu przesuwasz jego kilometraż; osobnym uchwytem napisu odsuwasz sam tekst i jego maskę. Początek/koniec skarpy pozostają granicami zakresu — zmieniasz je parametrami, nie przesuwaniem granicznego uchwytu. Po zmianie kilometrażu/proporcji powierzchnię skarpy przelicz jawnie. Samo odsunięcie napisu nie wymaga przeliczania terenu.
 
-Zachowane funkcje 0.36: naprawa zapisu do DWG, regularna siatka, PPM, żółte łuki pionowe z PŁ/KŁ i powiększenie pionowe.
+Zachowane są poprawki 0.37: PPM profilu, dziedziczenie proporcji po usunięciu wewnętrznego manipulatora i brak nakładających się skarp tego samego źródła/strony.
 
-Nie dodano nowych stylów manipulatorów skarp — ich wizualizacja jest osobną propozycją. Integracji wersji 0.37 w natywnym BricsCAD nie zweryfikowano; sprawdzono działanie okna WPF i obliczenia. Zamknij wszystkie sesje CAD przed instalacją.
+## Weryfikacja
+Kompilacja względem API BricsCAD V26, testy obliczeń wielkości/położeń, rozdzielenia ruchu tekstu i symbolu oraz dotychczasowe testy projektu. Rzeczywiste właściwości MTextAttribute/BackgroundFill/LockPositionInBlock sprawdzono w lokalnym API. Wyglądu maski i zachowania uchwytów tej wersji nie zweryfikowano jeszcze wewnątrz natywnego BricsCAD-a.
 
-## Usuwanie manipulatorów i pojedyncza skarpa
-- Usunięcie wewnętrznego manipulatora skarpy usuwa jego regułę. Do następnej etykiety obowiązuje poprzednia proporcja. Późniejsze manipulatory pozostają bez zmian. Początek i koniec pozostają wymaganymi granicami zakresu (na początku bez poprzedniej etykiety obowiązuje bazowa proporcja).
-- Usunięcie wewnętrznego trójkąta procentowego usuwa powiązaną regułę wysokościową; poprzednia etykieta przejmuje zakres. Reguła początkowa pozostaje obowiązkowa.
-- Ponowne „Skarpa do terenu” dla nakładającego się zakresu tego samego źródła i strony jest blokowane. Zmianę proporcji dodawaj przez „Dodaj spadek”.
-- Istniejące duplikaty są porządkowane przy aktualizacji planu oraz przeliczaniu skarp. W części wspólnej pierwszeństwo ma najnowsza definicja. Nienakładające się końce starszych skarp i ich lokalne proporcje pozostają; stare definicje są archiwizowane w DWG. Przeciwna strona i inne źródła są niezależne.
-- Poprzednie powierzchnie są usuwane według indeksu właściciela, a nie tylko ukrywane. Po usunięciu manipulatora powierzchnia danego zakresu jest oznaczana jako nieaktualna/ukrywana; użyj Przelicz skarpy, aby odtworzyć ją z poprzednią proporcją.
+`UpdateMTextAttribute` i niezależne położenie atrybutu: [Bricsys .NET API](https://developer.bricsys.com/bricscad/help/en_US/V25/DevRef/source/html/938961a5-76b6-ed3a-2e2e-d50c220a2727.htm).
