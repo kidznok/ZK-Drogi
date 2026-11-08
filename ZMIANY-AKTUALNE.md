@@ -1,24 +1,30 @@
-# ZK Drogi 0.39 — rozpoznawanie elementów z warstw
+# ZK Drogi 0.40 — boczna paleta geometrii osi
 
-## Ustawienia i rysowanie
-Dodano do wstążki Ustawienia, Analizuj warstwy i Utwórz warstwy. W Ustawienia → Mapowanie warstw określasz wzorzec warstwy, typ elementu (lista wyboru), warstwę odniesienia, podążanie w planie oraz wartość spadku / uskoku.
+## Wskazanie i edycja PI
+Przycisk Geometria osi (RSAXISEDIT) prosi o kliknięcie w okolicy wewnętrznego PI lub łuku, następnie otwiera dokowaną paletę boczną z podglądem. Wybór końca osi nie służy do wstawiania łuku: krzywa wymaga wewnętrznego PI.
 
-Domyślna reguła: D01_KRAW_* → Krawężnik, odniesienie D01_JEZ_*, uskok +0,12 m. Końcówka L/P jest przenoszona do wzorca odniesienia: D01_KRAW_P szuka D01_JEZ_P.
+- R: promień łuku.
+- L₁ i L₂: niezależne długości klotoidy wejściowej i wyjściowej; mogą być różne. Wartość 0 wyłącza daną klotoidę.
+- Tryby: załamanie, sam łuk kołowy, klotoida–łuk–klotoida.
+- Podgląd lokalny: proste czerwone, łuk żółty, klotoidy pomarańczowe, PI i charakterystyczne granice.
+- Wyniki: kąt zwrotu, zwrot, T₁/T₂, długość łuku i układu, A₁/A₂ oraz L₁/R i L₂/R.
+- Poprzedni/Następny PI oraz Wskaż PI na rysunku. Przechodzenie między PI zachowuje poprawne szkice parametrów aż do Zastosuj.
+- Cofnij parametry tego PI przywraca parametry zapisane przy załadowaniu osi.
 
-Gdy włączone jest automatyczne rozpoznawanie, dorysowana otwarta polilinia lub nieprzypisana polilinia przeniesiona na pasującą warstwę jest analizowana po zakończeniu polecenia. Program rozpoznaje zakres kilometrażu, stronę i jednoznaczne odniesienie pokrywające cały fragment, tworzy element i regułę wysokości. W trakcie rysowania i przeciągania nie powstaje model 3D. Powierzchnie pozostają do jawnego przeliczenia.
+## Zapis i bezpieczeństwo
+Podgląd nie modyfikuje DWG przy wpisywaniu liczb. Przy zmianie pola sprawdza wybrany PI i jego sąsiadów; pełna geometria osi jest budowana dopiero przy zatwierdzeniu. Zastosuj kolejkuje polecenie zapisu w kontekście CAD. Oś, zależny plan i opisy aktualizują się w jednej transakcji. Błąd geometrii, nachodzenie sąsiednich krzywych lub nieudana aktualizacja planu odrzuca transakcję. Model 3D i skarpy pozostają do jawnego przeliczenia; rzutnia nie jest obracana.
 
-Brak jednoznacznego odniesienia lub pasujące sprzeczne reguły powodują komunikat i pominięcie polilinii; Analizuj warstwy pozwala wskazać odniesienie ręcznie. Podkłady i reguły nieaktywne są pomijane. Można wyłączyć automatyczne rozpoznawanie checkboxem w Mapowaniu warstw.
+Paleta kontroluje rysunek i odcisk geometrii: nie nadpisuje osi zmienionej uchwytem od jej załadowania i nie zapisuje do innego aktywnego DWG. Po takim komunikacie wskaż PI ponownie. Przy trwającym innym poleceniu CAD trzeba je najpierw zakończyć.
 
-## Zmiana typu istniejącego elementu
-Przeniesienie całej zarejestrowanej krawędzi jezdni na warstwę krawężnika zachowuje dotychczasową bazową zależność wysokościową i dodaje uskok. Przykład: rzędna osi 100 m, szerokość 3,5 m i spadek -2% → krawędź 99,93 m; po zmianie na krawężnik +0,12 m → 100,05 m. Zachowane są wcześniejsze zmiany spadków i ich interpolacja.
+## Zgodność i geometria asymetryczna
+Dawne dane z jedną długością L są odczytywane jako L₁=L₂. Nowy zapis przechowuje osobno długość wyjściową. Silnik rozróżnia dwie długości stycznych, sprawdza ich nakładanie między sąsiednimi PI i aktualizuje granice opisów, kolorów osi oraz odcinków poszerzeń. Model osi pozostaje poliliniową aproksymacją z tolerancją 0,5 mm.
 
-## Ważne: przerwanie polilinii
-Ta wersja NIE zapewnia automatycznego przepinania całej sieci poboczy/chodników po BREAK istniejącej, próbkowanej krawędzi. Zmiana liczby jej punktów jest wykrywana, aktualizacja zatrzymywana, a nieaktualny model ukrywany. Należy cofnąć takie przerwanie i narysować osobną krótką polilinię krawężnika. Samo mapowanie warstw nie zastępuje podziału logicznych zależności.
-
-## Dostęp ręczny
-Zachowano przycisk Krawężnik (RSADDCURB) w grupie 2. Krawędzie i spadki. Służy do ręcznego przypisania własnej krótkiej polilinii, odniesienia i uskoku.
+Dotychczasowy przycisk Dodaj łuk / krzywe przejściowe (RSTRANSITION) otwiera tę samą paletę. Starsza tabela pozostaje dostępna poleceniem RSAXISTABLE; dawne symetryczne wstawianie poleceniem RSTRANSITIONLEGACY.
 
 ## Weryfikacja
-Testy doboru L/P, krótkich zakresów, niejednoznacznych odniesień, zachowania rzędnej bazowej i uskoku oraz istniejących funkcji. Kompilacja z API BricsCAD V26; nowego automatycznego przepływu zdarzeń nie zweryfikowano jeszcze w natywnym CAD.
+Testy obliczeniowe krzywych symetrycznych/asymetrycznych, zerowej klotoidy po jednej stronie, domknięcia, odbicia, limitu kąta, kolizji sąsiadów i zgodności starego JSON. Test rzeczywistego kontrolera WPF w niewidocznym oknie: osobne R/L₁/L₂, nawigacja, kolory podglądu, cofanie, odrzucenie błędnych danych, wybór PI i blokada zamkniętego rysunku. Panel wyrenderowano i obejrzano. Dokowania palety i zapisu transakcji w natywnym BricsCAD jeszcze nie zweryfikowano.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją. Wersja produktu: 0.39.
+Paleta używa [PaletteSet.AddVisual](https://developer.bricsys.com/bricscad/help/en_US/V25/DevRef/source/html/19454b32-1f75-02ce-64d8-d1f6e753bb6c.htm) z API Bricsys.
+
+Zamknij wszystkie sesje BricsCAD przed instalacją. Wersja: 0.40.
+
