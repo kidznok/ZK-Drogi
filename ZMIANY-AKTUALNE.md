@@ -1,8 +1,11 @@
-# ZK Drogi 0.49 — mniejsze opisy i otwarte okno ramp
+# ZK Drogi 0.50 — Przekroje na wstążce
 
-- Zastosowanie przechyłki pozostawia okno ramp otwarte. Po udanym zapisie odświeżany jest stan sesji, więc można wykonać kolejne korekty i ponownie zastosować je do tego samego DWG. Zmiany rysunku wykonane poza oknem nadal wymagają ponownego otwarcia podglądu.
-- Domyślne napisy spadków są mniejsze: skala opisów 1:200 i tekst 2 mm dają 0,40 m w modelu zamiast poprzednich 2,50 m. Stare, niezmienione ustawienia domyślne są przenoszone na mniejszy rozmiar również w istniejących DWG. Własne ustawienia skali lub wysokości pozostają zachowane.
-- Napisy procentowe mają zapis bez zbędnych zer, np. -2%, -8%, 3.5%. Znaczące miejsca dziesiętne są zachowane do dwóch cyfr. Wartości spadków zapisane w modelu nie są zmieniane przez formatowanie.
-- Po aktualizacji wybierz Aktualizuj plan (RSPLANUPDATE), aby odświeżyć opisy istniejącego rysunku. Wielkości można nadal ustawić przyciskiem Manipulatory.
+- Nowa sekcja „4. Przekroje” z przyciskami „Wstaw przekrój” (RSSECTION) i „Odśwież przekroje” (RSSECTIONUPDATE).
+- Wstawianie: wskaż miejsce na osi, następnie punkt umieszczenia rysunku przekroju w DWG. Na planie powstaje polilinia przekroju do edycji uchwytami.
+- Przekrój rysuje się od razu, również przy wyłączonej automatycznej aktualizacji przekrojów. Nie wymaga przebudowy modelu 3D.
+- Pokazuje przecinane elementy drogi, rzędne, szerokości i pochylenia. Początek rysunku przekroju znajduje się przy wskazanym punkcie wstawienia.
+- Po zmianie linii na planie wybierz „Odśwież przekroje”. Można wstawić wiele przekrojów w różnych miejscach.
+- Poprawiono obsługę punktów wskazywanych w obróconym LUW. Brak elementów we wskazanym kilometrażu lub niejednoznaczne przecięcia powodują komunikat i wycofanie wstawienia.
+- Wstążka jest odtwarzana z nową sekcją. Przy ręcznym ładowaniu można użyć RSRIBBON.
 
-Weryfikacja: testy obliczeniowe, migracji ustawień, formatowania, testy WPF z wielokrotnym zastosowaniem ustawień i testy aktualizatora. Zapis do natywnego DWG w BricsCADzie pozostaje niezweryfikowany. Zamknij wszystkie sesje BricsCAD przed instalacją.
+Weryfikacja: kompilacja, testy obliczeniowe i tras poleceń wstążki oraz testy aktualizatora. Wstawiania na natywnym DWG w BricsCADzie jeszcze nie zweryfikowano. Instalacja po zamknięciu wszystkich sesji BricsCAD.

@@ -1,7 +1,9 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.49 — mniejsze opisy i otwarte okno ramp
+## 0.50 — przekroje na wstążce
+- Sekcja „Przekroje”: Wstaw przekrój oraz Odśwież przekroje. Wskaż miejsce na osi, potem punkt wstawienia przekroju w DWG. Powstaje też edytowalna linia na planie.
+- Wstawienie od razu rysuje przekrój z rzędnymi, szerokościami i pochyleniami, również przy wyłączonej automatycznej aktualizacji. Bez przebudowy modelu 3D.
 - Napisy spadków mają mniejszy domyślny rozmiar i zapis bez zbędnych zer: -2%, -8%, 3.5%. Istniejące domyślne ustawienia są migrowane; własne rozmiary pozostają zachowane. Po aktualizacji odśwież plan.
 - Zastosowanie przechyłki pozostawia okno ramp otwarte. Można wykonywać kolejne korekty i ponownie je zapisywać.
 - Wąskie okno geometrii z przyciskiem Proponuj oraz osobne okno Przechyłka i rampy.
@@ -12,4 +14,4 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 
 445 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis i przebudowa na DWG w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.49.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.50.
