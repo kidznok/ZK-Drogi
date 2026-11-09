@@ -1,12 +1,12 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.46 — naprawa błędu Dodaj PI
-- Naprawiony komunikat „Nie można narysować krawędzi nominalnej z zadaną dokładnością”.
-- Nominalna krawędź poszerzenia używa wspólnego połączenia przy wierzchołkach zamiast skoku normalnej, który powodował niekończące się zagęszczanie.
-- Próbkowanie pomocniczej linii jest ograniczone. Ewentualna nieciągłość tworzy lokalną przerwę w oznaczeniu, a nie wyjątek cofający poprawną oś i jej zależności.
-- Zachowano walidację osi, parametry łuków i klotoid oraz zapisane szerokości i korekty. Nowy edytor profilu z wersji 0.45 pozostaje.
+## 0.47 — PI dodawany natywnym uchwytem
+- Dodanie jednego wewnętrznego wierzchołka na RS_CONTROLS nie jest już blokowane ogólnym komunikatem o zmianie liczby PI.
+- Natywna edycja używa tego samego mechanizmu co Dodaj PI w oknie geometrii: zachowanie tożsamości łuków i powiązań krawędzi, poboczy, poszerzeń, profili i skarp.
+- Dodawaj jeden wewnętrzny PI na polecenie, pozostawiając pozostałe punkty bez zmian. Usuwanie PI, dopisywanie punktów poza końcami oraz mieszane operacje dostają osobny komunikat i nie zmieniają poprawnej osi.
+- Po dodaniu wybierz Geometria osi i wskaż nowy PI, aby ustawić R/L₁/L₂. Przy wyłączonej automatyce użyj Aktualizuj plan.
 
-419 testów obliczeniowych i 12 testów aktualizatora. Kompilacja pluginu dla BricsCAD V26. Ponowienia na rysunku użytkownika w natywnej sesji CAD jeszcze nie zweryfikowano. Szczegóły: ZMIANY-AKTUALNE.md.
+425 testów obliczeniowych i 12 testów aktualizatora. Kompilacja pluginu dla BricsCAD V26. Natywnego dodania uchwytem na rysunku użytkownika jeszcze nie zweryfikowano. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją. Po restarcie ponów Geometria osi → Dodaj PI. Wersja 0.46.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.47. 3D i skarpy pozostają do osobnego przeliczenia.
