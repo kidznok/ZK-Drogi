@@ -1,12 +1,13 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.42 — wąskie okienko geometrii i naprawa wydłużania osi
-- Geometria osi jest osobnym, wąskim, pływającym oknem z R, L₁, L₂ i podglądem; bez dokowania palety.
-- Naprawiono błąd uciętego JSON przy długich powiązaniach po wydłużeniu osi. Odczyt wszystkich fragmentów Xrecord oraz zapis w krótkich fragmentach.
-- Zachowane naprawy 0.41: otwarcie edytora bez przebudowy opisów, odtworzenie niespójnych próbek z zapisanych szerokości i przeliczenie zależnych krawędzi/poboczy po zastosowaniu geometrii.
-- Model 3D i skarpy przeliczane osobno.
+## 0.43 — kompaktowe okno i oznaczenia poszerzeń
+- Ciemne okno geometrii zgodne z zaakceptowanym układem: R/L₁/L₂ w jednym rzędzie, podgląd, rozwijane parametry, stała belka Cofnij zmiany / Zastosuj.
+- Nagłówek z PI, nazwą osi i kilometrażem; wybieranie PI na rysunku i nawigacja.
+- Przerywana krawędź nominalna na zakresie poszerzenia, z zachowaniem zapisanych korekt ręcznych.
+- Wymiary w jednym ciągu prostopadłym do osi: pas | pas na początku wprowadzenia, pas | pas | poszerzenie na początku łuku. Analogicznie na wyprowadzeniu. Natywne wymiary CAD, bez odnośnika poszerzenia.
+- Aktualizacja planu odtwarza oznaczenia bez kolejnych kopii. 3D i skarpy pozostają ręczne.
 
-386 testów obliczeniowych, test panelu WPF i 12 testów aktualizatora. Native API skompilowane dla BricsCAD V26; działania nowego okna wewnątrz CAD jeszcze nie zweryfikowano. Szczegóły: ZMIANY-AKTUALNE.md.
+396 testów obliczeniowych, test rzeczywistego panelu WPF z inspekcją wyrenderowanego wyglądu i 12 testów aktualizatora. Nowych wymiarów w natywnej sesji BricsCAD jeszcze nie zweryfikowano. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją. Wersja 0.42.
+Zamknij wszystkie sesje BricsCAD przed instalacją. Potem Aktualizuj plan oraz Geometria osi. Wersja 0.43.
