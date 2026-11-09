@@ -1,18 +1,24 @@
-# ZK Drogi 0.43 — kompaktowe okno geometrii i wymiarowanie poszerzeń
+# ZK Drogi 0.44 — dodawanie PI, przesuwanie profilu i śledzenie na planie
 
-## Geometria osi
-- Ciemne, kompaktowe, pływające okno zgodne z zaakceptowanym układem: nagłówek PI i kilometraż osi, strzałki poprzedni/następny PI, Wskaż, wybór układu, pola R/L₁/L₂ w jednym rzędzie.
-- Podgląd z siatką i legendą: prosta czerwona, łuk żółty, klotoidy pomarańczowe. Pod nim Δ i T₁/T₂ oraz rozwijane parametry wynikowe. Etykiety punktów mają ograniczanie kolizji.
-- Stała dolna belka Cofnij zmiany / Zastosuj. W razie zmniejszenia okna przewija się zawartość, a przyciski pozostają dostępne. Okno przenosi się za nagłówek i zamyka krzyżykiem.
-- Zachowane niezależne długości klotoid, walidacja geometrii i aktualizacja zależnego planu w transakcji. Po zapisie kilometraż PI jest odczytywany ponownie. 3D i skarpy przeliczane osobno.
+## Dodaj PI w geometrii osi
+- Nowy przycisk + Dodaj PI w okienku geometrii oraz polecenie RSAXISADDPI.
+- Wskaż odcinek łamanej PI, następnie nowe położenie punktu. Program dodaje wewnętrzny wierzchołek, aktualizuje plan i wybiera go w edytorze. Wybierz łuk lub klotoida–łuk–klotoida, wpisz R/L₁/L₂ i Zastosuj.
+- Obsługiwana jest również oś będąca pojedynczą prostą z dwoma punktami: otwórz Geometria osi i użyj Dodaj PI. Dodawanie jest oddzielnym zatwierdzanym krokiem, więc Cofnij parametry nie usuwa dodanego punktu; wycofanie kroku przez CAD UNDO.
+- Istniejące łuki zachowują tożsamość i osobne długości klotoid. Krawędzie, pobocza, ręczne poszerzenia, reguły, profile i zakresy skarp otrzymują dodatkową kotwicę kilometrażu. Nie są przeliczane przez błędne indeksy po zmianie liczby PI.
+- Jeżeli istniejące łuki po zmianie ramion nie mieszczą się, dodanie jest odrzucane przed zapisem. ESC podczas wskazywania nie zmienia DWG. Zapis osi i zależnego planu pozostaje w jednej transakcji.
+- Dodawanie przyciskiem nie porzuca poprawnego szkicu R/L₁/L₂; uwzględnia go w tej samej operacji. 3D i skarpy wymagają jawnego przeliczenia.
 
-## Poszerzenia na planie
-- W zakresie automatycznego poszerzenia rysowana jest przerywana krawędź nominalna, bez automatycznego przyrostu szerokości; zapisane korekty ręczne pozostają w szerokości nominalnej. Linia występuje po stronie poszerzenia i ma ciągły wzór kreskowy przez kolejne wierzchołki.
-- Na początku wprowadzenia poszerzenia: ciąg wymiarów obu pasów nominalnych. Na początku łuku z pełnym poszerzeniem: pas | pas | poszerzenie. Symetrycznie na końcu łuku i wyprowadzenia poszerzenia.
-- Są to natywne wymiary CAD na jednej wspólnej linii prostopadłej do osi, bez odnośnika dla poszerzenia. Nie rysuje się zerowego dodatkowego wymiaru. Dla przeciwnego zwrotu łuku łańcuch jest lustrzany.
-- Dodatkowy wymiar pokazuje łączny przyrost szerokości jezdni po stronie wewnętrznej według obecnego modelu WR-D (nie ponowne dodanie poszerzenia każdego pasa). Nominalnym podziałem do tego łańcucha jest oś, nie przesunięta linia podziału ruchu.
-- Oznaczenia zastępują wcześniejsze wymiary pary jezdni przy etykietach spadków, są indeksowane i odtwarzane bez kumulowania kopii przy aktualizacji planu. Reszta wymiarów elementów pozostaje. Widoczność powiązana z Pokaż wiązania. Krótsze zakresy elementów są respektowane.
+## Profil
+- Przeciąganie środkowym przyciskiem myszy przesuwa widok w poziomie i pionie, bez zmiany PVI. Alternatywnie włącz Przesuń i przeciągaj lewym przyciskiem. Cały profil przywraca cały zakres i zeruje przesunięcie pionowe.
+- Pozostają kółko do zbliżenia i Shift+kółko do przesuwania poziomego.
+- Śledź na planie: ruch kursora po profilu oraz wybór PVI przekazuje kilometraż do tymczasowego znacznika na osi w CADzie. Nie zmienia rzutni ani nie dodaje obiektów do DWG. Wyłączenie, opuszczenie wykresu i zamknięcie edytora usuwa znacznik. Odświeżanie ograniczone do ok. 28 razy na sekundę.
+- Docelowy nowy wygląd dużego edytora profilu jest osobną propozycją; ta wersja dodaje sterowanie widokiem i śledzenie do aktualnego okna.
 
-Weryfikacja: 396 testów obliczeniowych; test rzeczywistego panelu WPF z układem pól w jednym rzędzie, nazwą i kilometrażem osi, widocznością dolnej belki, rozwijaniem parametrów, edycją R/L₁/L₂ i ochroną przed niepoprawną geometrią. Panel wyrenderowano i obejrzano. Testy aktualizatora oraz kompilacja z API BricsCAD V26. Wymiarów i nowego okna w natywnej sesji BricsCAD jeszcze nie zweryfikowano.
+Weryfikacja: 412 testów obliczeniowych, testy rzeczywistych paneli WPF osi i profilu, w tym trasa przycisku Dodaj PI, przesuwanie obu osi bez edycji geometrii i zdarzenia śledzenia. Testy aktualizatora i kompilacja API BricsCAD V26. Natywne działanie znacznika i dodania PI w otwartym BricsCADzie nie zostało jeszcze zweryfikowane.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.43. Następnie Aktualizuj plan, aby odtworzyć oznaczenia poszerzeń, oraz Geometria osi, aby otworzyć nowe okno.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.44.
+
+## Kolory osi na planie
+- Jednolity podział: prosta ACI 1 (czerwona), łuk kołowy ACI 2 (żółty), klotoidy ACI 30 (pomarańczowe), kreska–kropka. Obsługa również natywnych łuków polilinii.
+- Aktualizacja przywraca widoczność i kolejność rysowania warstwy stylu. Sygnatura uwzględnia parametry osi i niwelety.
+- Kolorowa reprezentacja jest rysowana także na wysokości niwelety z odstępem graficznym 2 cm, żeby czerwona oś modelu 3D nie zasłaniała jej w widoku cieniowanym. Nie zmienia to geometrii obliczeniowej osi ani rzędnych drogi.
