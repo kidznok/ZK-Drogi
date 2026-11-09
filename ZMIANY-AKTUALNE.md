@@ -1,11 +1,16 @@
-# ZK Drogi 0.47 — dodawanie PI natywnym uchwytem
+# ZK Drogi 0.48 — geometria i osobne okno ramp
 
-- Usunięto ogólną blokadę „Zmiana liczby PI nie jest jeszcze obsługiwana tym uchwytem” dla dodania jednego wewnętrznego wierzchołka do łamanej RS_CONTROLS.
-- Natywna edycja rozpoznaje nowy punkt pomiędzy dotychczasowymi punktami, a następnie korzysta z tego samego mechanizmu co Dodaj PI w oknie geometrii: przesuwa indeksy istniejących łuków, dodaje kotwicę kilometrażu i aktualizuje powiązania krawędzi, poboczy, ręcznych poszerzeń, niwelet i skarp.
-- Zwykłe przesuwanie istniejących PI pozostaje bez zmian. Po dodaniu PI wybierz Geometria osi i wskaż nowy wierzchołek, aby nadać R/L₁/L₂.
-- Obsługiwane jest dodanie jednego wewnętrznego PI na polecenie przy zachowaniu pozostałych punktów. Jednoczesne dodawanie i przesuwanie dawnych punktów, usuwanie PI oraz dopisywanie punktu poza końcami osi są odrzucane z osobnym wyjaśnieniem zamiast ogólnej blokady. W razie błędu wraca ostatnia poprawna oś.
-- Nowa topologia jest przygotowana przed sprawdzeniem WR-D, tak aby walidacja nie używała starej liczby kotwic. Rysunek jest zapisywany transakcyjnie; model 3D i skarpy nadal wymagają osobnego przeliczenia.
+- Wąskie okno geometrii zachowuje szerokość. „Przechyłka i rampy →” otwiera osobne okno obok; można je niezależnie przesuwać i zamykać.
+- „Proponuj” dobiera kandydaturę R/L₁/L₂ dla prędkości zapisanej w osi i przechyłki 5%. Sprawdza promień z tab. 7.1.2 WR-D-22-2:2023, granicę przyrostu przyspieszenia z tab. 7.1.5, kąt klotoidy i miejsce na stycznych wraz z sąsiednimi łukami. Brak miejsca kończy się komunikatem, bez obniżania wymagań.
+- Propozycja nie jest pełnym audytem projektu: widoczność, warunki lokalne i zalecenia dotyczące przebiegu sąsiednich elementów wymagają osobnej oceny.
+- Najpierw zastosuj geometrię. Potem otwórz rampy dla tego PI: ustaw daszek, przechyłkę, długości lub |Δi| lewej/prawej krawędzi oraz spadki poboczy. Obrót w tej wersji odbywa się wokół osi drogi.
+- Okno pokazuje dodatkowe Δi oraz zakres rzeczywistego pochylenia podłużnego obu krawędzi z zapisanej niwelety, również na łukach pionowych. Uwzględnia szerokości i poszerzenia. Na rampie interpolowana jest wysokość krawędzi, nie sam procent.
+- Kontrola promienia/przechyłki i minimalnego/maksymalnego Δi blokuje zapis poza obsługiwanym zakresem. Dobór obsługuje prędkości 30–140 km/h i przechyłki 2,5–7%; prędkości pośrednie sprawdzane są konserwatywnie według wyższego wiersza tabeli.
+- „Zastosuj spadki na planie” zapisuje ustawienia przy osi i aktualizuje istniejące manipulatory przypisane do łuku lub tworzy brakujące. Obsługiwane są krawędzie jezdni odniesione do osi i pobocza odniesione do tych krawędzi; krótsze elementy są ograniczane do własnego zakresu.
+- Po zmianie geometrii osi automatyczne etykiety podążają za granicami ramp. Ręcznie zmienione wartości i kilometraże oraz istniejące ręczne etykiety nie są nadpisywane. Usunięty automatyczny manipulator nie jest odtwarzany przy kolejnym przeliczeniu.
+- Zachowano identyfikację ramp po dodaniu wewnętrznego PI. Nakładające się rampy lub wyjście poza oś są odrzucane transakcyjnie.
+- Aktualizacja ramp nie przelicza automatycznie modelu 3D ani skarp. Zmiana rysunku po otwarciu okna blokuje zapis starego podglądu — otwórz rampy ponownie.
 
-Weryfikacja: 425 testów obliczeniowych, w tym rozpoznanie dodania przy pierwszym i ostatnim odcinku, zgodność geometrii i indeksów łuków dla uchwytu i okienka, odrzucenie niejednoznacznych zmian. Kompilacja pluginu dla BricsCAD V26 i testy aktualizatora. Natywnej edycji uchwytem na rysunku użytkownika jeszcze nie zweryfikowano.
+Źródło tabel: https://www.gov.pl/attachment/489a909f-ca76-4841-b485-bcdfc88f9bd2
 
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.47. Dodaj punkt uchwytem na łamanej RS_CONTROLS albo użyj Dodaj PI w edytorze geometrii. Przy wyłączonej automatyce wybierz Aktualizuj plan.
+Weryfikacja: testy obliczeniowe i testy obu okien WPF bez sterowania ekranem. Pełny zapis i przebudowa na natywnym DWG w BricsCADzie nie zostały jeszcze zweryfikowane. Instalacja wymaga zamknięcia wszystkich sesji BricsCAD.
