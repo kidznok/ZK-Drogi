@@ -1,12 +1,11 @@
-# ZK Drogi 0.41 — paleta geometrii i naprawa próbkowania krawędzi
+# ZK Drogi 0.42 — wąskie okno geometrii i długie powiązania
 
-- Otwarcie „Geometria osi” (RSAXISEDIT / RSTRANSITION) nie przebudowuje planu ani opisów. Nie blokuje go błąd topologii innego elementu.
-- Usunięto przyczynę pozostawiania starej listy próbek po przejściu krawędzi na geometrię niepróbkowaną. Lista kilometraży i liczba wierzchołków nie rozchodzą się po tej operacji.
-- „Zastosuj geometrię” odtwarza elementy z niespójną listą próbek z ich zapisanych powiązań szerokościowych. Zachowuje zapisane ręczne poszerzenia i reguły WR-D. Nie odczytuje nowych szerokości z uszkodzonego wyniku; nazwy odtworzonych elementów są podawane w wierszu poleceń.
-- Oś, krawędzie i pobocza aktualizowane są w jednej transakcji po zmianie R, L₁ lub L₂. Pobocze zachowuje szerokość względem krawędzi. 3D i skarpy wymagają osobnego przeliczenia.
-- Naprawa nie służy do zatwierdzania BREAK/TRIM próbkowanej krawędzi: niezapisane zmiany topologii wyniku zostaną zastąpione zapisanymi powiązaniami. Krótkie nowe elementy nadal należy dodawać osobnymi poliliniami.
-- Biblioteka CAD ma numer wersji produktu 0.41, ułatwiający sprawdzanie zainstalowanego pliku.
+- Geometria osi otwiera się jako osobne, wąskie, pływające okno (350 px), bez dokowania i bez zakładki palety. Można przesuwać je po ekranie i nadal pracować w CADzie. Zamknięcie ukrywa okno; ponowne wywołanie pokazuje je ponownie.
+- Pozostają pola R, L₁, L₂, podgląd, nawigacja PI, wskazywanie na rysunku i Zastosuj geometrię. Zapis nadal odbywa się przez polecenie CAD, nie bezpośrednio z obsługi modeless WPF.
+- Naprawiono błąd Expected end of string / ReadBinding po wydłużeniu osi: powiązania szerokościowe czytają wszystkie fragmenty tekstu Xrecord, a nie tylko pierwszy. Zapis długich list punktów jest dzielony na fragmenty po maksymalnie 1024 znaki. Ten sam odczyt stosowany jest do planu, poboczy i starszych ścieżek przebudowy.
+- Obsługiwane są istniejące poprawne zapisy jedno- i wielofragmentowe. Nie odtwarzamy brakujących danych przez zgadywanie szerokości.
+- Zachowane poprawki 0.41: otwarcie edytora bez przebudowy planu, naprawa niezgodnej listy próbek przy zastosowaniu geometrii i aktualizacja zależnych krawędzi/poboczy z zapisanych powiązań. 3D i skarpy pozostają do jawnego przeliczenia.
 
-Weryfikacja: kompilacja pluginu, testy obliczeniowe obejmujące osobną zmianę R/L₁/L₂, zachowanie ręcznego poszerzenia i szerokości pobocza, test panelu WPF i aktualizatora. Natywnego dokowania palety i zapisu w BricsCADzie nie potwierdzono — połączenie do sterowania aplikacją było niedostępne.
+Weryfikacja: 386 testów obliczeniowych, w tym zapis/odczyt 2000 punktów szerokości na odcinku ok. 10 km, odtworzenie błędu odczytu pierwszego fragmentu, zgodność starych zapisów; test panelu WPF i testy aktualizatora. Plugin kompilowany z API BricsCAD V26, w tym ShowModelessWindow. Otwarcia nowego okna i edycji na rysunku w natywnym BricsCADzie nie zweryfikowano automatycznie.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.41. Następnie Geometria osi → wskaż PI → R/L₁/L₂ → Zastosuj geometrię.
+Zamknij wszystkie sesje BricsCAD przed instalacją. Wersja 0.42. Po ponownym uruchomieniu użyj Aktualizuj plan; model 3D i skarpy przelicz osobno. Geometria osi otworzy wąskie okno.

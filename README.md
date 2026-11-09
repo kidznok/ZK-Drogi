@@ -1,13 +1,12 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.41 — naprawa topologii i palety geometrii
-- Paleta R/L₁/L₂ otwiera się bez przeliczania zależnych elementów i opisów.
-- Poprawiono pozostawianie starej listy próbek po zmianie sposobu generowania krawędzi.
-- Zastosuj geometrię odtwarza niespójne wyniki z zapisanych szerokości i poszerzeń, następnie aktualizuje oś, krawędzie i pobocza razem. Nazwy odtworzonych elementów są wypisywane w wierszu poleceń.
-- Edycja R, L₁ i L₂ zachowuje zapisane korekty poszerzeń oraz szerokość pobocza. 3D i skarpy przeliczane osobno.
-- Nie służy to do zatwierdzania BREAK/TRIM: niezapisane zmiany topologii wyniku zastępuje zapisane powiązanie. Krótsze elementy dodawaj osobnymi poliliniami.
+## 0.42 — wąskie okienko geometrii i naprawa wydłużania osi
+- Geometria osi jest osobnym, wąskim, pływającym oknem z R, L₁, L₂ i podglądem; bez dokowania palety.
+- Naprawiono błąd uciętego JSON przy długich powiązaniach po wydłużeniu osi. Odczyt wszystkich fragmentów Xrecord oraz zapis w krótkich fragmentach.
+- Zachowane naprawy 0.41: otwarcie edytora bez przebudowy opisów, odtworzenie niespójnych próbek z zapisanych szerokości i przeliczenie zależnych krawędzi/poboczy po zastosowaniu geometrii.
+- Model 3D i skarpy przeliczane osobno.
 
-382 testy obliczeniowe i test panelu WPF przechodzą. Natywnego testu w BricsCADzie nie przeprowadzono: niedostępne połączenie do aplikacji. Szczegóły: ZMIANY-AKTUALNE.md.
+386 testów obliczeniowych, test panelu WPF i 12 testów aktualizatora. Native API skompilowane dla BricsCAD V26; działania nowego okna wewnątrz CAD jeszcze nie zweryfikowano. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją. Wersja 0.41.
+Zamknij wszystkie sesje BricsCAD przed instalacją. Wersja 0.42.
