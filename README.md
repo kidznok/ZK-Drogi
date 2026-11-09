@@ -1,13 +1,12 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.44 — Dodaj PI, sterowanie profilem i kolory osi
-- Geometria osi → + Dodaj PI → wskaż odcinek łamanej i nowe położenie punktu → ustaw R/L₁/L₂. Także dla osi złożonej z dwóch punktów.
-- Dodanie PI uwzględnia zmianę indeksów istniejących łuków i kotwic powiązań krawędzi, poboczy, ręcznych poszerzeń, profili i skarp. Operacja jest transakcyjna.
-- Profil: środkowy przycisk lub Przesuń do przesuwania wykresu w poziomie i pionie. Cały profil przywraca zakres. Śledź na planie włącza tymczasowy znacznik kilometrażu kursora/PVI na osi, bez zmiany rzutni i bez zapisywania znacznika w DWG.
-- Prosta czerwona, łuk żółty, klotoidy pomarańczowe. Przywracanie widoczności i kolejności rysowania stylu; reprezentacja na wysokości niwelety zapobiega zasłanianiu kolorów przez czerwoną oś modelu w widoku cieniowanym.
-- Nowy wygląd dużego edytora profilu pozostaje osobną propozycją. W tej wersji dodano sterowanie i śledzenie do obecnego okna.
+## 0.45 — nowy edytor profilu
+- Ciemny układ: duży wykres z pasmami, panel PVI po prawej i stałe przyciski zatwierdzania.
+- Tabela PVI pod wykresem jest domyślnie zwinięta. Rozwiń nagłówek, aby edytować kilometraż, rzędną i R. Zwinięcie powiększa wykres bez utraty danych.
+- Śledź na modelu CAD: tymczasowy znacznik przekroju na rzeczywistym modelu, na wysokości zapisanej niwelety. Ruch kursora i wybór/przeciąganie PVI zmienia kilometraż znacznika. Bez miniatury planu w edytorze i bez zmiany rzutni.
+- Zachowane niezależne profile drogi/rowów, edycja PVI i łuków, PPM, cofanie, kółko do zbliżenia oraz środkowy przycisk / Przesuń do przesuwania widoku.
 
-412 testów obliczeniowych, testy rzeczywistych okien WPF osi/profilu i 12 testów aktualizatora. Natywnego dodania PI, znacznika i kolorów w otwartym BricsCADzie jeszcze nie zweryfikowano. Szczegóły: ZMIANY-AKTUALNE.md.
+412 testów obliczeniowych, testy WPF profilu i 12 testów aktualizatora przechodzą. Wyrenderowano i obejrzano tabelę rozwiniętą i zwiniętą. Natywne wyświetlanie znacznika w BricsCADzie pozostaje niezweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją. Następnie Aktualizuj plan. 3D i skarpy przeliczaj osobno. Wersja 0.44.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.45. Otwórz edytor niwelety; tabela domyślnie będzie zwinięta. 3D i skarpy przeliczaj osobno po zatwierdzeniu geometrii.

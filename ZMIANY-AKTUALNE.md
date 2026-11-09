@@ -1,24 +1,12 @@
-# ZK Drogi 0.44 — dodawanie PI, przesuwanie profilu i śledzenie na planie
+# ZK Drogi 0.45 — nowy edytor profilu i śledzenie w modelu CAD
 
-## Dodaj PI w geometrii osi
-- Nowy przycisk + Dodaj PI w okienku geometrii oraz polecenie RSAXISADDPI.
-- Wskaż odcinek łamanej PI, następnie nowe położenie punktu. Program dodaje wewnętrzny wierzchołek, aktualizuje plan i wybiera go w edytorze. Wybierz łuk lub klotoida–łuk–klotoida, wpisz R/L₁/L₂ i Zastosuj.
-- Obsługiwana jest również oś będąca pojedynczą prostą z dwoma punktami: otwórz Geometria osi i użyj Dodaj PI. Dodawanie jest oddzielnym zatwierdzanym krokiem, więc Cofnij parametry nie usuwa dodanego punktu; wycofanie kroku przez CAD UNDO.
-- Istniejące łuki zachowują tożsamość i osobne długości klotoid. Krawędzie, pobocza, ręczne poszerzenia, reguły, profile i zakresy skarp otrzymują dodatkową kotwicę kilometrażu. Nie są przeliczane przez błędne indeksy po zmianie liczby PI.
-- Jeżeli istniejące łuki po zmianie ramion nie mieszczą się, dodanie jest odrzucane przed zapisem. ESC podczas wskazywania nie zmienia DWG. Zapis osi i zależnego planu pozostaje w jednej transakcji.
-- Dodawanie przyciskiem nie porzuca poprawnego szkicu R/L₁/L₂; uwzględnia go w tej samej operacji. 3D i skarpy wymagają jawnego przeliczenia.
+- Ciemny edytor niwelety: duży wykres z pasmami, zwarty panel parametrów PVI po prawej, stała dolna belka Zastosuj i aktualizuj DWG / Anuluj. Obsługa drogi i niezależnych niwelet rowów pozostaje.
+- Tabela PVI jest zawsze dostępna pod wykresem, ale domyślnie zwinięta przy każdym otwarciu. Kliknij Tabela PVI, aby rozwinąć edytowalne kolumny kilometrażu, rzędnej i promienia R. Zwinięcie oddaje miejsce wykresowi, bez usuwania danych.
+- Zachowano przeciąganie PVI, łuki pionowe żółte z PŁ/KŁ, dodawanie załomu pod PPM, cofanie oraz przesuwanie widoku środkowym przyciskiem lub trybem Przesuń. Kółko przybliża, Shift+kółko przesuwa poziomo.
+- Śledź na modelu CAD rysuje tymczasowy cyjanowy znacznik i linię przekroju na rzeczywistej osi w modelu CAD, na wysokości zapisanej niwelety. Ruch kursora po profilu, wybór i przeciąganie PVI zmienia kilometraż znacznika. Nie ma miniatury planu wewnątrz edytora.
+- Znacznik nie jest obiektem DWG. Wyłączenie śledzenia, opuszczenie wykresu i zamknięcie edytora usuwa go. Położenie kamery i orientacja rzutni pozostają bez zmian; model musi być widoczny w rzutni, np. po przesunięciu okna edytora na bok.
+- Nagłówek służy do przesuwania okna, dolny narożnik do zmiany rozmiaru. Instrukcje w panelu bocznym są zwinięte pod Obsługa.
 
-## Profil
-- Przeciąganie środkowym przyciskiem myszy przesuwa widok w poziomie i pionie, bez zmiany PVI. Alternatywnie włącz Przesuń i przeciągaj lewym przyciskiem. Cały profil przywraca cały zakres i zeruje przesunięcie pionowe.
-- Pozostają kółko do zbliżenia i Shift+kółko do przesuwania poziomego.
-- Śledź na planie: ruch kursora po profilu oraz wybór PVI przekazuje kilometraż do tymczasowego znacznika na osi w CADzie. Nie zmienia rzutni ani nie dodaje obiektów do DWG. Wyłączenie, opuszczenie wykresu i zamknięcie edytora usuwa znacznik. Odświeżanie ograniczone do ok. 28 razy na sekundę.
-- Docelowy nowy wygląd dużego edytora profilu jest osobną propozycją; ta wersja dodaje sterowanie widokiem i śledzenie do aktualnego okna.
+Weryfikacja: 412 testów obliczeniowych, rzeczywiste testy WPF profilu (tabela domyślnie zwinięta, rozwijanie, odzyskanie miejsca przez wykres, edycja PVI, cofanie, PPM, skale, przesuwanie i zdarzenia śledzenia), wyrenderowanie i inspekcja obu stanów okna. Kompilacja pluginu z API BricsCAD V26 i testy aktualizatora. Natywnego wyświetlania znacznika w BricsCADzie nie zweryfikowano.
 
-Weryfikacja: 412 testów obliczeniowych, testy rzeczywistych paneli WPF osi i profilu, w tym trasa przycisku Dodaj PI, przesuwanie obu osi bez edycji geometrii i zdarzenia śledzenia. Testy aktualizatora i kompilacja API BricsCAD V26. Natywne działanie znacznika i dodania PI w otwartym BricsCADzie nie zostało jeszcze zweryfikowane.
-
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.44.
-
-## Kolory osi na planie
-- Jednolity podział: prosta ACI 1 (czerwona), łuk kołowy ACI 2 (żółty), klotoidy ACI 30 (pomarańczowe), kreska–kropka. Obsługa również natywnych łuków polilinii.
-- Aktualizacja przywraca widoczność i kolejność rysowania warstwy stylu. Sygnatura uwzględnia parametry osi i niwelety.
-- Kolorowa reprezentacja jest rysowana także na wysokości niwelety z odstępem graficznym 2 cm, żeby czerwona oś modelu 3D nie zasłaniała jej w widoku cieniowanym. Nie zmienia to geometrii obliczeniowej osi ani rzędnych drogi.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.45. Następnie otwórz edytor niwelety. Tabela PVI rozwinie się po kliknięciu jej nagłówka; Śledź na modelu CAD włącza znacznik w CADzie. Zmiany geometrii zatwierdzaj Zastosuj i aktualizuj DWG; 3D i skarpy przeliczaj osobno.
