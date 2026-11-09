@@ -1,12 +1,11 @@
-# ZK Drogi 0.45 — nowy edytor profilu i śledzenie w modelu CAD
+# ZK Drogi 0.46 — Dodaj PI: krawędź nominalna nie blokuje operacji
 
-- Ciemny edytor niwelety: duży wykres z pasmami, zwarty panel parametrów PVI po prawej, stała dolna belka Zastosuj i aktualizuj DWG / Anuluj. Obsługa drogi i niezależnych niwelet rowów pozostaje.
-- Tabela PVI jest zawsze dostępna pod wykresem, ale domyślnie zwinięta przy każdym otwarciu. Kliknij Tabela PVI, aby rozwinąć edytowalne kolumny kilometrażu, rzędnej i promienia R. Zwinięcie oddaje miejsce wykresowi, bez usuwania danych.
-- Zachowano przeciąganie PVI, łuki pionowe żółte z PŁ/KŁ, dodawanie załomu pod PPM, cofanie oraz przesuwanie widoku środkowym przyciskiem lub trybem Przesuń. Kółko przybliża, Shift+kółko przesuwa poziomo.
-- Śledź na modelu CAD rysuje tymczasowy cyjanowy znacznik i linię przekroju na rzeczywistej osi w modelu CAD, na wysokości zapisanej niwelety. Ruch kursora po profilu, wybór i przeciąganie PVI zmienia kilometraż znacznika. Nie ma miniatury planu wewnątrz edytora.
-- Znacznik nie jest obiektem DWG. Wyłączenie śledzenia, opuszczenie wykresu i zamknięcie edytora usuwa go. Położenie kamery i orientacja rzutni pozostają bez zmian; model musi być widoczny w rzutni, np. po przesunięciu okna edytora na bok.
-- Nagłówek służy do przesuwania okna, dolny narożnik do zmiany rozmiaru. Instrukcje w panelu bocznym są zwinięte pod Obsługa.
+- Naprawiono błąd „Nie można narysować krawędzi nominalnej z zadaną dokładnością”, który cofał dodawanie PI i inne aktualizacje planu.
+- Przyczyną był skok normalnej przy ostrym PI lub wierzchołku polilinii: rekurencyjne próbkowanie oznaczenia poszerzenia próbowało zagęszczaniem usunąć skok, aż osiągało limit głębokości.
+- W wierzchołkach stosowana jest wspólna normalna z połączeniem odcinków, z ograniczeniem nadmiernego wysunięcia przy prawie przeciwnych ramionach. Pomiędzy wierzchołkami punkt nominalnej krawędzi jest ciągły.
+- Próbkowanie oznaczenia ma ograniczenie liczby operacji, głębokości i minimalnego kroku. Jeżeli mimo to wystąpi nieciągłość, pomocnicza linia dostaje lokalną przerwę zamiast błędnego ukośnego połączenia. Informacja trafia do logu; nie jest zgłaszany wyjątek cofający poprawną geometrię drogi.
+- Nie zmieniono walidacji właściwej osi, dopasowania łuków, powiązań krawędzi/poboczy ani zapisanych szerokości i korekt. Tolerancja ciągłych fragmentów oznaczenia pozostaje 2 mm.
 
-Weryfikacja: 412 testów obliczeniowych, rzeczywiste testy WPF profilu (tabela domyślnie zwinięta, rozwijanie, odzyskanie miejsca przez wykres, edycja PVI, cofanie, PPM, skale, przesuwanie i zdarzenia śledzenia), wyrenderowanie i inspekcja obu stanów okna. Kompilacja pluginu z API BricsCAD V26 i testy aktualizatora. Natywnego wyświetlania znacznika w BricsCADzie nie zweryfikowano.
+Weryfikacja: 419 testów obliczeniowych, w tym ostry narożnik, skok normalnej, rozdzielenie części bez fałszywej przekątnej, ograniczenie wysunięcia oraz odcinek 10 km. Kompilacja pluginu dla BricsCAD V26 i testy aktualizatora. Ponowienia operacji na rysunku użytkownika w natywnej sesji CAD jeszcze nie przeprowadzono.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.45. Następnie otwórz edytor niwelety. Tabela PVI rozwinie się po kliknięciu jej nagłówka; Śledź na modelu CAD włącza znacznik w CADzie. Zmiany geometrii zatwierdzaj Zastosuj i aktualizuj DWG; 3D i skarpy przeliczaj osobno.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.46. Po restarcie ponów Geometria osi → Dodaj PI. Poprzednia operacja zakończona tym błędem była cofana transakcyjnie. 3D i skarpy pozostają do osobnego przeliczenia.
