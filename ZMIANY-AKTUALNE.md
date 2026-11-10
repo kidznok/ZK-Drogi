@@ -1,12 +1,12 @@
-# ZK Drogi 0.78 — postęp mapowania krawędzi
+# ZK Drogi 0.79 — granice próbkowania modelu 3D
 
-- Mapuj krawędzie korzysta z tej samej kompaktowej karty postępu co modelowanie. Jedna karta obejmuje skan DWG, analizę warstw i elementów, kolejne przebiegi doboru odniesień, zapis, symbole spadków i odświeżenie widoku.
-- Liczniki pochodzą z przetwarzanych obiektów, elementów danego przebiegu lub symboli; procent dotyczy bieżącego etapu. Etapy bez licznika pokazują pasek animowany. Długie rzutowanie wierzchołków aktualizuje własny licznik.
-- Karta pojawia się po 0,4 s, bez przejmowania fokusu, i znika po zakończeniu. Ukryj działa do końca całego polecenia, również po zatwierdzeniu przypisań podczas aktualizacji symboli. Nie oferuje anulowania w połowie operacji obejmującej osobne zatwierdzenia transakcji.
-- Automatyczne rozpoznawanie warstw i późniejsze odświeżanie planu używają jednej karty. Analiza warstw i ręczne zatwierdzanie odniesień także mają postęp; karta nie pozostaje otwarta podczas wybierania opcji w oknie analizy.
-- Usunięto zbędne ponowne rzutowanie wierzchołków przy czyszczeniu opisów, gdy dla elementu nie ma żadnych luk.
-- RSENGINESTATUS wyświetla faktyczną wersję załadowanej biblioteki zamiast stałego napisu 0.30.
+- Naprawiono przypadek Limit próbkowania: km 2748.3149224865124..2748.314922586951. Algorytm nie dzieli dalej odcinków o długości do 0,000001 m; zachowuje jednak wymagane punkty graniczne.
+- Błąd cięciwy jest oceniany tylko na faktycznej części wspólnej z zakresem elementu. Tolerancja sprawdzania obecności nie powoduje odczytywania nieistniejącego fragmentu za końcem krawędzi.
+- Końce i środek badanego odcinka korzystają z tej samej aktywnej reguły/referencji wybranej wewnątrz odcinka. Rzeczywisty skok wysokości na granicy pozostaje zachowany z obu stron i nie jest traktowany jak krzywizna wymagająca ciągłego zagęszczania.
+- W podążaniu pobocza za odcinkami jezdni niemal zbieżne dodatkowe kilometraże są scalane z istniejącą siatką punktów sterujących. Nie powstają pary punktów szerokości odległe o mniej niż tolerancja walidacji.
+- Dotychczasowe ograniczenia głębokości i liczby próbek pozostają aktywne dla rzeczywiście nierozwiązywalnej geometrii. Nieprawidłowe i nieskończone wyniki nadal zgłaszają błąd.
+- Zmieniono wersję algorytmu modelu; pierwsze przeliczenie po aktualizacji przebuduje model w całości, aby nie mieszać starych i nowych fragmentów.
 
-Analiza dostarczonego logu: operacja zakończyła się komunikatem Dodano: 11, elementów: 43. Nie odnotowano wycofania ani wyjątku. Pozostają pominięcia obiektów rzutowanych wielokrotnie na koniec osi oraz brakujące lub niejednoznaczne odniesienia. Postęp nie zmienia zasad doboru i nie oznacza, że wszystkie polilinie zostały przypisane.
+Po aktualizacji wybierz Utwórz / odśwież 3D. Następnie przelicz skarpy, jeśli zmienił się model.
 
-Sprawdzenie: kompilacja z SDK BricsCAD; testy karty na odizolowanym pulpicie Windows obejmujące etapy mapowania, jedną kartę, rzeczywisty licznik przebiegu, Ukryj także podczas późniejszego odświeżania symboli oraz pozostałe zachowania karty. Pełnego mapowania z nową kartą w uruchomionym CAD jeszcze nie wykonano. API CAD nadal pracuje na głównym wątku; karta nie przenosi obliczeń do tła.
+Weryfikacja: 626 testów geometrii i polityk; regresja zawiera dokładny przedział ze zrzutu, obustronną granicę skoku wysokości, przycięcie do zakresu, zachowanie limitów i niemal zbieżne węzły szerokości. Kompilacja z SDK BricsCAD bez błędów. Dostęp przez API do aktualnego rysunku był niedostępny; pełnej przebudowy na żywym DWG po tej poprawce jeszcze nie wykonano.

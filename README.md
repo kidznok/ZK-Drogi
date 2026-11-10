@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.79 — granice próbkowania modelu 3D
+- Poprawiono rekurencję na niemal identycznych kilometrażach, przycięcie do rzeczywistego zakresu oraz wybór jednej strony granicy reguł. Zachowane są prawdziwe skoki wysokości i zabezpieczenia próbkowania.
+- Scalanie dodatkowych bliskich węzłów zapobiega nieprawidłowej siatce szerokości. 626 testów; pierwszy model wymaga pełnego przeliczenia. Bez pełnej próby na żywym DWG.
+
 ## 0.78 — postęp mapowania krawędzi
 - Jedna kompaktowa karta dla skanowania DWG, doboru odniesień, zapisu i symboli; opóźnienie 0,4 s, rzeczywiste liczniki etapów i Ukryj do końca operacji.
 - Analiza warstw i automatyczne rozpoznawanie również mają postęp. RSENGINESTATUS podaje faktyczną wersję. Testy karty na odizolowanym pulpicie przeszły; bez pełnej próby mapowania z kartą w CAD.
