@@ -1,7 +1,8 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.54 — napisy spadków przy symbolach
+## 0.55 — zakres rowu ograniczony do osi
+- Pola kilometrażu, tabela i uchwyty rowu nie pozwalają wyjść poza rzeczywisty zakres osi z DWG. Zaokrąglenie końcowego kilometrażu do trzech miejsc nie wywołuje fałszywego błędu.
 - Poprawione przenoszenie tekstu po zmianie geometrii. Nadmiernie odsunięte napisy wracają przy symbol po odświeżeniu planu/skarp; małe ręczne przesunięcia pozostają zachowane.
 - Dodaj rów: wybierz L/P i zakres kilometrażu, ustaw rzędne w edytorze profilu, następnie Przelicz skarpy.
 - W zakresie niwelety: skarpa od pobocza do rzędnej dna, poziome dno 0,50 m i przeciwskarpa do terenu z Xrefa. Poza zakresem zwykłe dowiązanie do terenu.
@@ -23,6 +24,7 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 
 480 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.54.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.55.
+
 
 
