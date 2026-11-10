@@ -1,10 +1,13 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.59 — duży przycisk Nawigator
+## 0.60 — wiele dróg w jednym DWG
+- Dodaj drogę rejestruje kolejną niezależną oś w tym samym DWG. Każda ma własne ustawienia, krawędzie, profil i rowy, model, skarpy oraz przekroje. Rozwinięcie drogi wybiera kontekst pracy.
+- Nowy nawigator z rozwijanymi sekcjami, podpisem Vdp, oznaczeniem aktywnej drogi, bursztynowymi znacznikami aktualności i czerwonymi błędami. Starsze wyniki wymagają jednokrotnego przeliczenia do zweryfikowania stanu.
+- Indeksy wyników i warstwy modeli są rozdzielone według osi. Pełna przebudowa jednej drogi nie powinna usuwać wyników pozostałych. Testy danych i okna przechodzą; natywnego przebiegu trzech dróg z 3D w BricsCADzie jeszcze nie zweryfikowano.
 - Na wstążce ZK Drogi zostaje jeden duży przycisk Nawigator z ikoną drzewa. Okno projektu zawiera skróty do narzędzi i aktualizację programu; bez nazwy pliku, z podpisem Vdp przy prędkości.
 - Przekroje: teren, projekt, szerokości i spadki oraz pasma rzędnych projektowanych/istniejących, różnic i odsunięć od osi. Jednakowa skala pionu i poziomu, domyślnie 1:100. Odśwież przekroje przebudowuje istniejące widoki.
-- Wąskie osobne okno: oś, krawędzie, profil i rowy, model 3D, skarpy oraz przekroje. Otwórz Nawigator projektu na wstążce lub RSNAVIGATOR. Zaznaczenie pokazuje przyciski, dwuklik otwiera edycję. Drzewo odświeża się po poleceniach i zmianie DWG bez przeliczania modelu.
+- Wąskie osobne okno: oś, krawędzie, profil i rowy, model 3D, skarpy oraz przekroje. Otwórz Nawigator projektu na wstążce lub RSNAVIGATOR. Rozwiń sekcję, aby wybrać polecenie. Drzewo odświeża się po poleceniach i zmianie DWG bez przeliczania modelu.
 - Dodaj rów: wybierz Lewy/Prawy, potem wskaż początek i koniec w edytorze przyciskami CAD albo profil. Bez wpisywania kilometraży w wierszu poleceń. CAD odczytuje kilometraż przez rzut punktu na oś; anulowanie zachowuje dane.
 - Pola kilometrażu, tabela i uchwyty rowu nie pozwalają wyjść poza rzeczywisty zakres osi z DWG. Zaokrąglenie końcowego kilometrażu do trzech miejsc nie wywołuje fałszywego błędu.
 - Poprawione przenoszenie tekstu po zmianie geometrii. Nadmiernie odsunięte napisy wracają przy symbol po odświeżeniu planu/skarp; małe ręczne przesunięcia pozostają zachowane.
@@ -26,9 +29,11 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 - Zapis spadków jezdni i poboczy na planie; automatyczne etykiety powiązane z łukiem, ochrona ręcznych korekt i usuniętych manipulatorów.
 - Najpierw zastosuj geometrię, potem otwórz rampy. W tej wersji obrót odbywa się wokół osi drogi. Model 3D i skarpy pozostają do osobnego przeliczenia.
 
-497 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
+530 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.59.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.60.
+
+
 
 
 
