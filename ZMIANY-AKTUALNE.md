@@ -1,15 +1,12 @@
-# ZK Drogi 0.77 — skarpy wyłącznie przy parze jezdnia + pobocze
+# ZK Drogi 0.78 — postęp mapowania krawędzi
 
-- Skarpa powstaje od zewnętrznej krawędzi pobocza tylko we wspólnym zakresie z powiązaną jezdnią o określonej wysokości. Pobocze również musi mieć poprawne powiązanie wysokościowe lub niweletę.
-- Sama jezdnia nie tworzy skarpy. Samo pobocze nie tworzy skarpy, nawet jeżeli ma własną niweletę. Brak pary jest celową przerwą, nie błędem dowiązania do terenu.
-- Zakresy są ustalane osobno dla lewej i prawej strony. Pobocze musi leżeć na zewnątrz swojej jezdni. Obsługiwane są kolejne odniesienia jezdni oraz pośredni zarejestrowany krawężnik.
-- Tolerancja końców używana przy mapowaniu nie przedłuża skarpy poza faktyczny zakres jezdni. Luki w parze nie są mostkowane trójkątami.
-- Przeliczanie usuwa wcześniejszą powierzchnię z niedozwolonych fragmentów. Definicje, ręczne proporcje i ukryte manipulatory pozostają zapisane; mogą ponownie działać, jeśli poprawna para wróci.
-- Na granicach dozwolonych fragmentów dodawane są manipulatory z zachowaniem obowiązującej proporcji. Przekroje również pomijają zakresy bez pary.
-- Zweryfikowany brak wymaganej pary jest poprawnym pustym wynikiem, a nie stale nieaktualną skarpą. Powrót pary oznacza konieczność ponownego przeliczenia.
-- Gdy nie ma żadnej poprawnej pary, polecenie nie pyta o nową proporcję ani nie tworzy powierzchni. Przelicza istniejące definicje, aby usunąć nieaktualny wynik.
-- Do próbkowania powierzchni pozostaje dotychczasowy krok skarpy i cechy geometrii; sprawdzanie dostępności pary nie zagęszcza powierzchni do wszystkich wierzchołków źródła.
+- Mapuj krawędzie korzysta z tej samej kompaktowej karty postępu co modelowanie. Jedna karta obejmuje skan DWG, analizę warstw i elementów, kolejne przebiegi doboru odniesień, zapis, symbole spadków i odświeżenie widoku.
+- Liczniki pochodzą z przetwarzanych obiektów, elementów danego przebiegu lub symboli; procent dotyczy bieżącego etapu. Etapy bez licznika pokazują pasek animowany. Długie rzutowanie wierzchołków aktualizuje własny licznik.
+- Karta pojawia się po 0,4 s, bez przejmowania fokusu, i znika po zakończeniu. Ukryj działa do końca całego polecenia, również po zatwierdzeniu przypisań podczas aktualizacji symboli. Nie oferuje anulowania w połowie operacji obejmującej osobne zatwierdzenia transakcji.
+- Automatyczne rozpoznawanie warstw i późniejsze odświeżanie planu używają jednej karty. Analiza warstw i ręczne zatwierdzanie odniesień także mają postęp; karta nie pozostaje otwarta podczas wybierania opcji w oknie analizy.
+- Usunięto zbędne ponowne rzutowanie wierzchołków przy czyszczeniu opisów, gdy dla elementu nie ma żadnych luk.
+- RSENGINESTATUS wyświetla faktyczną wersję załadowanej biblioteki zamiast stałego napisu 0.30.
 
-Po aktualizacji użyj Przelicz skarpy; jeżeli nie było jeszcze definicji, wybierz Skarpy od poboczy.
+Analiza dostarczonego logu: operacja zakończyła się komunikatem Dodano: 11, elementów: 43. Nie odnotowano wycofania ani wyjątku. Pozostają pominięcia obiektów rzutowanych wielokrotnie na koniec osi oraz brakujące lub niejednoznaczne odniesienia. Postęp nie zmienia zasad doboru i nie oznacza, że wszystkie polilinie zostały przypisane.
 
-Weryfikacja: 617 testów geometrii i polityk, w tym para/sama jezdnia/samo pobocze, brak wysokości, rzeczywiste zakresy i przerwy, obie strony, położenie na zewnątrz, przekroczenie krawędzi, niweleta częściowa, pośredni krawężnik, cykl wysokości i zachowanie ręcznych proporcji. Kompilacja z SDK BricsCAD. Pełnego przeliczenia na żywym rysunku po tej zmianie jeszcze nie wykonano.
+Sprawdzenie: kompilacja z SDK BricsCAD; testy karty na odizolowanym pulpicie Windows obejmujące etapy mapowania, jedną kartę, rzeczywisty licznik przebiegu, Ukryj także podczas późniejszego odświeżania symboli oraz pozostałe zachowania karty. Pełnego mapowania z nową kartą w uruchomionym CAD jeszcze nie wykonano. API CAD nadal pracuje na głównym wątku; karta nie przenosi obliczeń do tła.

@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.78 — postęp mapowania krawędzi
+- Jedna kompaktowa karta dla skanowania DWG, doboru odniesień, zapisu i symboli; opóźnienie 0,4 s, rzeczywiste liczniki etapów i Ukryj do końca operacji.
+- Analiza warstw i automatyczne rozpoznawanie również mają postęp. RSENGINESTATUS podaje faktyczną wersję. Testy karty na odizolowanym pulpicie przeszły; bez pełnej próby mapowania z kartą w CAD.
+
 ## 0.77 — skarpa tylko przy parze jezdnia + pobocze
 - Wymaga jezdni o określonej wysokości i zewnętrznego pobocza z wysokością w tym samym zakresie, osobno L/P. Sama jezdnia lub samo pobocze nie tworzą skarpy.
 - Luki nie są mostkowane; przeliczenie usuwa nieaktualną powierzchnię, zachowując definicje i ręczne proporcje. 617 testów; bez pełnej próby w uruchomionym CAD.
