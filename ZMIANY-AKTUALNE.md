@@ -1,11 +1,13 @@
-# ZK Drogi 0.66 — walidacja zakresu przed mapowaniem
+# ZK Drogi 0.67 — manipulatory po mapowaniu
 
-Naprawiono wycofywanie całego automatycznego mapowania, gdy jedna z nowych polilinii ma powtarzający się albo cofający kilometraż. Zgłoszony przypadek: zatoka 5C9BD z kolejnymi punktami o stacji 3014.8864182382931 na końcu osi.
+Naprawiono przypadek, w którym po mapowaniu polilinii pozostawały wyłącznie opisy DBText zamiast bloków z symbolami spadku. Z logu: aktualizacja planu zatrzymywała się wcześniej w automatycznym rozwiązywaniu geometrii osi („Brak miejsca na automatyczną geometrię”), zanim wykonywane było tworzenie bloków.
 
-Przed zapisaniem wiązania sprawdzane są stacje wierzchołków, włącznie z przyciąganiem do stacji wierzchołków osi. Wadliwa nowa polilinia jest pomijana z identyfikatorem, warstwą i wskazaniem przyczyny. Pozostałe poprawne polilinie nadal są przypisywane. Tabela Wybierz odniesienia również oznacza taką polilinię jako niegotową do dodania.
+Mapuj krawędzie odświeża teraz manipulatory na bieżącej geometrii w osobnej transakcji, bez uruchamiania automatycznego doboru łuków/klotoid ani przekształcania źródłowych krawędzi. Usuwa z kolejki edycji wyłącznie nowo utworzone przez mapowanie wiązania/źródła, aby nie uruchamiać po nich niepotrzebnej przebudowy osi. Włącza widoczność manipulatorów.
 
-Nie sortujemy wierzchołków, nie przycinamy źródła ani nie rozdzielamy sztucznie dwóch takich samych kilometraży. Jeżeli polilinia wychodzi poza początek/koniec osi, należy skrócić lub podzielić jej fragment do zakresu osi albo wydłużyć oś. Krawędź biegnąca poprzecznie lub wracająca względem kilometrażu wymaga podziału; obecny model wiązania opisuje jedną szerokość w danym kilometrażu.
+Ponowne Mapuj krawędzie naprawia także już przypisane elementy, nawet gdy nie ma nowych polilinii: ukrywa pomocnicze teksty i odtwarza bloki. Procentowy symbol to trójkąt między odniesieniem a krawędzią, z atrybutem tekstowym i istniejącą obsługą osobnego przesuwania symbolu i napisu. Automatyczne rozpoznawanie nowo rysowanych polilinii i ręczna tabela również tworzą bloki przed dalszym przeliczaniem planu.
 
-Po aktualizacji wybierz ponownie Mapuj krawędzie. Poprawne przypisania zostają zachowane; sprawdź komunikaty Pominięto dla pozostałych fragmentów.
+Pomocnicze DBText nowych reguł projektu od początku są ukryte. Pozostają nośnikiem danych, a nie zastępstwem widocznego manipulatora.
 
-Weryfikacja: 561 testów geometrii/polityk, w tym regresja z dokładną stacją ze zgłoszenia, powtórzenie stacji na początku i wewnątrz osi, cofnięcie kilometrażu oraz poprawna krótka zatoka. Kompilacja SDK BricsCAD V26. Pełnego mapowania w uruchomionym CAD po zmianie jeszcze nie zweryfikowano.
+Po aktualizacji: Nawigator → Krawędzie i elementy → Mapuj krawędzie. Nie dodaje ponownie istniejących reguł ani nie nadpisuje ręcznych spadków. Ta zmiana naprawia wyświetlanie i etap mapowania; błąd doboru geometrii osi nadal może blokować przeliczenie modelu 3D i wymaga osobnej korekty parametrów osi.
+
+Weryfikacja: kompilacja ze SDK BricsCAD V26. Poprawka oparta na rzeczywistym stosie błędu użytkownika. Pełnego wyświetlenia bloków w uruchomionym CAD po zmianie jeszcze nie zweryfikowano.
