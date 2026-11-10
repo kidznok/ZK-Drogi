@@ -1,6 +1,9 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.65 — ikona terenu
+- Teren w Nawigatorze ma ikonę siatki triangulacji, odrębną od geometrii osi.
+
 ## 0.64 — mapowanie krawędzi z warstw
 - Nawigator → Krawędzie i elementy → Mapuj krawędzie: istniejące polilinie są przypisywane według reguł nazw warstw i odniesień. Działa także bez automatycznego wykrywania nowych polilinii.
 - Zachowuje istniejące przypisania i ręczne spadki. Nie przejmuje geometrii innych dróg. Niejednoznaczne odniesienia rozstrzyga tabela Wybierz odniesienia.
@@ -49,6 +52,7 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 530 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
 Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.60.
+
 
 
 
