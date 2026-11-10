@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.77 — skarpa tylko przy parze jezdnia + pobocze
+- Wymaga jezdni o określonej wysokości i zewnętrznego pobocza z wysokością w tym samym zakresie, osobno L/P. Sama jezdnia lub samo pobocze nie tworzą skarpy.
+- Luki nie są mostkowane; przeliczenie usuwa nieaktualną powierzchnię, zachowując definicje i ręczne proporcje. 617 testów; bez pełnej próby w uruchomionym CAD.
+
 ## 0.76 — odwrotny kierunek pobocza
 - Naprawiono wycofywanie mapowania przy rysowaniu opisu luki na poboczu w odwrotnym kierunku. Opis korzysta z aktualnej geometrii źródła bez sortowania wierzchołków.
 - 594 testy, w tym dokładne kilometraże 5CABA z logu. Pełnego ponownego mapowania w CAD jeszcze nie wykonano.

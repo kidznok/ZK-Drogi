@@ -1,10 +1,15 @@
-# ZK Drogi 0.76 — odwrotny kierunek pobocza nie przerywa mapowania
+# ZK Drogi 0.77 — skarpy wyłącznie przy parze jezdnia + pobocze
 
-- Naprawiono błąd zgłoszony dla 5CABA: opis brakującego odniesienia wywoływał PlanPoint na jeszcze nieprzypisanej polilinii biegnącej przeciwnie do kilometrażu. To powodowało wycofanie całego przypisania.
-- Opisy luk są teraz pozycjonowane na bieżącej geometrii źródła z zachowaniem jego kierunku i parametrów odcinków. Odczyt nie korzysta z dawnych wiązań ani nie sortuje wierzchołków.
-- Przed nowym przypisaniem niezarejestrowanej polilinii usuwane są odziedziczone zapisy wiązania i próbek. Istniejące zarejestrowane elementy zachowują swoje dane.
-- Zwykły odwrotny kierunek rysowania jest obsługiwany. Rzeczywiste cofanie się wewnątrz polilinii nadal jest wykrywane i pomijane jako niejednoznaczne.
+- Skarpa powstaje od zewnętrznej krawędzi pobocza tylko we wspólnym zakresie z powiązaną jezdnią o określonej wysokości. Pobocze również musi mieć poprawne powiązanie wysokościowe lub niweletę.
+- Sama jezdnia nie tworzy skarpy. Samo pobocze nie tworzy skarpy, nawet jeżeli ma własną niweletę. Brak pary jest celową przerwą, nie błędem dowiązania do terenu.
+- Zakresy są ustalane osobno dla lewej i prawej strony. Pobocze musi leżeć na zewnątrz swojej jezdni. Obsługiwane są kolejne odniesienia jezdni oraz pośredni zarejestrowany krawężnik.
+- Tolerancja końców używana przy mapowaniu nie przedłuża skarpy poza faktyczny zakres jezdni. Luki w parze nie są mostkowane trójkątami.
+- Przeliczanie usuwa wcześniejszą powierzchnię z niedozwolonych fragmentów. Definicje, ręczne proporcje i ukryte manipulatory pozostają zapisane; mogą ponownie działać, jeśli poprawna para wróci.
+- Na granicach dozwolonych fragmentów dodawane są manipulatory z zachowaniem obowiązującej proporcji. Przekroje również pomijają zakresy bez pary.
+- Zweryfikowany brak wymaganej pary jest poprawnym pustym wynikiem, a nie stale nieaktualną skarpą. Powrót pary oznacza konieczność ponownego przeliczenia.
+- Gdy nie ma żadnej poprawnej pary, polecenie nie pyta o nową proporcję ani nie tworzy powierzchni. Przelicza istniejące definicje, aby usunąć nieaktualny wynik.
+- Do próbkowania powierzchni pozostaje dotychczasowy krok skarpy i cechy geometrii; sprawdzanie dostępności pary nie zagęszcza powierzchni do wszystkich wierzchołków źródła.
 
-Po aktualizacji ponownie użyj Mapuj krawędzie, następnie Aktualizuj plan i przelicz model oraz skarpy.
+Po aktualizacji użyj Przelicz skarpy; jeżeli nie było jeszcze definicji, wybierz Skarpy od poboczy.
 
-Weryfikacja: 594 testy geometrii i polityk. Test regresji zawiera kilometraże 3014,8864182382931 → 3014,2625656362402 z logu użytkownika. Sprawdzono oba kierunki, końce i odcinek wewnętrzny oraz zachowanie kolejności źródła. Kompilacja z SDK BricsCAD. Pełnego ponownego mapowania w uruchomionym CAD jeszcze nie wykonano.
+Weryfikacja: 617 testów geometrii i polityk, w tym para/sama jezdnia/samo pobocze, brak wysokości, rzeczywiste zakresy i przerwy, obie strony, położenie na zewnątrz, przekroczenie krawędzi, niweleta częściowa, pośredni krawężnik, cykl wysokości i zachowanie ręcznych proporcji. Kompilacja z SDK BricsCAD. Pełnego przeliczenia na żywym rysunku po tej zmianie jeszcze nie wykonano.
