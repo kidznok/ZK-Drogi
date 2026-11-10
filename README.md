@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.69 — niwelety w Nawigatorze
+- Profil pokazuje licznik i wszystkie zapisane niwelety, także niweletę drogi. Każda ma zakres kilometrażu, oznaczenie strony rowu i własny przycisk edycji.
+- Test okna poza ekranem obejmuje drogę i dwa rowy oraz wybór właściwej niwelety.
+
 ## 0.68 — model 3D z zapisanej geometrii osi
 - Model nie uruchamia ponownego doboru R i klotoid, jeżeli nie edytowano wierzchołków osi. Korzysta z zapisanego przebiegu, niwelety i spadków.
 - Nowa edycja punktów nadal jest rozwiązywana i sprawdzana. Poprawka nie potwierdza zgodności projektu z Vdp. Pełnej budowy w CAD po zmianie jeszcze nie wykonano.
@@ -64,6 +68,7 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 530 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
 Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.60.
+
 
 
 

@@ -1,11 +1,7 @@
-# ZK Drogi 0.68 — model 3D z zapisanej osi
+# ZK Drogi 0.69 — lista niwelet w Nawigatorze
 
-Naprawiono zatrzymanie budowy modelu 3D komunikatem „Brak miejsca na automatyczną geometrię”, gdy nie było nowej edycji wierzchołków osi. Przy budowie modelu dotychczas wykonywany był ponowny dobór R i klotoid według prędkości, szerokości i ograniczeń ramp, zanim rozpoczęło się liczenie wysokości. Niepowodzenie propozycji blokowało model z już zapisanej osi.
+Sekcja Profil pokazuje liczbę zapisanych niwelet oraz osobne pozycje: Niweleta drogi i każda zapisana niweleta rowu lub innego elementu. Niweleta drogi nie jest już pomijana w liście.
 
-Utwórz / odśwież 3D oraz pełne/lokalne przeliczenie modelu korzystają teraz z bieżącej zapisanej geometrii i nie uruchamiają niejawnego ponownego doboru jej parametrów. Dobór i zmiana R/L pozostają w Geometrii osi i jej dotychczasowym przebiegu edycji. Zmiany niwelety, spadków i szerokości są nadal uwzględniane przy modelowaniu.
+Przy każdej niwelecie widoczny jest typ/strona i zakres kilometrażu. Rozwinięcie pozycji udostępnia Edytuj niweletę otwierające właściwy profil w kontekście właściwej drogi. Licznik pochodzi z zapisanych profili; robocza niweleta w edytorze pojawi się po zatwierdzeniu Zastosuj i aktualizuj DWG.
 
-Faktycznie zmieniony uchwyt osi nadal podlega istniejącemu rozwiązaniu geometrii i walidacji: nie ignorujemy niezatwierdzonej lub błędnej edycji punktów. Zmiana nie oznacza potwierdzenia zgodności istniejącej geometrii z prędkością projektową.
-
-Po aktualizacji wybierz ponownie Utwórz / odśwież 3D. Poprawna przebudowa zastąpi zapamiętany błąd modelu w Nawigatorze.
-
-Kompilacja ze SDK BricsCAD V26. Poprawka dotyczy gałęzi wskazanej w rzeczywistym logu użytkownika. Pełnej budowy 3D w uruchomionym CAD po zmianie jeszcze nie wykonano.
+Testy WPF poza ekranem obejmują rzeczywisty adapter listy dla drogi oraz dwóch rowów, trzy pozycje z typami L/P, zakresami i akcjami niosącymi identyfikator drogi/niwelety. Zachowano obecne zmiany wspólnego modułu aktualizacji i dołączono wymaganą bibliotekę ZK.UI.Wpf do katalogu dodatku CAD.
