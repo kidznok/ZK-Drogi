@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.74 — pobocza i odcinkowe odniesienia
+- Pobocze może korzystać z kolejnych polilinii jezdni. Tolerancja końców 1 m; bez skracania źródła. Podążanie i wysokości uwzględniają zmianę odniesienia.
+- Ponowne Mapuj krawędzie zachowuje istniejące spadki. Luki i niejednoznaczności są opisane na planie. 587 testów; pełna próba w CAD pozostaje do weryfikacji.
+
 ## 0.73 — niezależny edytor profilu
 - Niemodalne okno niwelety drogi i rowów. Zastosuj zapisuje dane przez osobne polecenie CAD bez zamykania edytora. Zachowuje kopię roboczą po błędzie.
 - Odczyt kilometrażu z modelu, powiązanie z DWG i ochrona przed nadpisaniem po zmianie osi. Testy WPF na osobnym pulpicie; bez próby równoległej pracy w uruchomionym BricsCAD.

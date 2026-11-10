@@ -1,11 +1,13 @@
-# ZK Drogi 0.73 — niezależny edytor profilu
+# ZK Drogi 0.74 — mapowanie poboczy do odcinków jezdni
 
-- Edytor niwelety drogi i rowów jest oknem niemodalnym: pozostaje otwarty, a CAD nie czeka na jego zamknięcie.
-- Zastosuj i aktualizuj DWG zapisuje zweryfikowane dane przez osobne polecenie CAD i nie zamyka edytora. Można stosować kolejne zmiany. Błąd zapisu pozostawia kopię roboczą w tym samym oknie.
-- Wskazywanie początku/końca rowu w modelu również odbywa się przez osobne polecenie, a odczytany kilometraż wraca do edytora.
-- Śledzenie na modelu jest realizowane po zakończeniu bieżącego polecenia CAD. Nie wykonuje zmian rysunku podczas przeciągania elementów CAD.
-- Okno jest przypisane do konkretnego DWG i osi. Przy innym aktywnym rysunku zapis jest blokowany; zamknięcie źródłowego DWG zamyka jego edytor.
-- Zmiana geometrii osi lub zapisanej niwelety w CAD podczas otwarcia edytora blokuje nadpisanie nieaktualnymi danymi. Należy ponownie otworzyć edytor. Zwykłe przybliżanie, przesuwanie widoku i praca nad innymi obiektami pozostają dostępne.
-- Jednocześnie działa jeden edytor profilu. Przed dodaniem nowego odcinka rowu lub otwarciem innej drogi trzeba zamknąć bieżący edytor.
+- Mapuj krawędzie dobiera dla pobocza kolejne polilinie jezdni według kilometrażu, strony osi i reguły nazwy warstwy. Nie wymaga jednej polilinii jezdni obejmującej całe pobocze.
+- Tolerancja końca odniesienia wynosi 1 m. Przypadek pobocza km 229,58–581,50 i jezdni 229,62–580,73 jest akceptowany. Polilinie źródłowe nie są skracane ani fizycznie dzielone.
+- Na krótkim brakującym końcu odniesienia program przedłuża poprzeczne odsunięcie skrajnego punktu; jego wysokość utrzymuje na rzędnej końca odniesienia. To przybliżenie w granicach tolerancji, a nie odczyt brakującej geometrii.
+- Odniesienie jest zapisane w odcinkach kilometrażu. Wysokości, model 3D, kreskowanie, spadki, podążanie w planie i przekroje korzystają z właściwego fragmentu jezdni. Zmiany szerokości kolejnych fragmentów propagują się na pobocze; zachowywane są ręczne wartości spadków.
+- Ponowne Mapuj krawędzie analizuje również istniejące pobocza, zachowując ich etykiety i ręczne korekty.
+- Rzeczywiste luki oraz nakładające się, niejednoznaczne jezdnie otrzymują czerwone opisy z kilometrażem na planie. Takie pobocze nie jest przypisywane automatycznie; pozostałe poprawne obiekty są przetwarzane. Ponowne poprawne mapowanie usuwa jego wcześniejsze opisy błędów.
+- Polilinie cofające się względem kilometrażu, fragmenty poprzeczne i obiekty wykraczające poza oś nadal wymagają wyjaśnienia — warstwa nie wystarcza do bezpiecznego przypisania.
 
-Sprawdzenie: kompilacja z SDK BricsCAD; testy WPF na odizolowanym pulpicie Windows: aktywne okno nadrzędne, wielokrotne Zastosuj bez zamykania, pozostawienie kopii po błędzie, asynchroniczny odbiór kilometrażu, zamknięcie oraz dotychczasowe testy profilu i rowów. Nie zweryfikowano jeszcze obsługi obu okien równocześnie w uruchomionym BricsCAD.
+Po instalacji: Krawędzie i elementy → Mapuj krawędzie → Aktualizuj plan. Następnie przelicz 3D i skarpy.
+
+Weryfikacja: 587 testów geometrii i polityk, w tym rzeczywista różnica końców 4/77 cm, dwa odniesienia, zmiana na styku, luki, niejednoznaczność, izolacja strony i nazwy drogi, podążanie za poszerzeniem drugiego fragmentu, zmiana długości osi i zapis/odczyt. Kompilacja z SDK BricsCAD bez błędów. Pełnego mapowania na otwartym rysunku CAD po tej zmianie jeszcze nie wykonano.
