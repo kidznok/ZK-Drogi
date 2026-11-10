@@ -1,7 +1,8 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
-## 0.57 — nawigator projektu
+## 0.58 — przekroje z pasmami
+- Przekroje: teren, projekt, szerokości i spadki oraz pasma rzędnych projektowanych/istniejących, różnic i odsunięć od osi. Jednakowa skala pionu i poziomu, domyślnie 1:100. Odśwież przekroje przebudowuje istniejące widoki.
 - Wąskie osobne okno: oś, krawędzie, profil i rowy, model 3D, skarpy oraz przekroje. Otwórz Nawigator projektu na wstążce lub RSNAVIGATOR. Zaznaczenie pokazuje przyciski, dwuklik otwiera edycję. Drzewo odświeża się po poleceniach i zmianie DWG bez przeliczania modelu.
 - Dodaj rów: wybierz Lewy/Prawy, potem wskaż początek i koniec w edytorze przyciskami CAD albo profil. Bez wpisywania kilometraży w wierszu poleceń. CAD odczytuje kilometraż przez rzut punktu na oś; anulowanie zachowuje dane.
 - Pola kilometrażu, tabela i uchwyty rowu nie pozwalają wyjść poza rzeczywisty zakres osi z DWG. Zaokrąglenie końcowego kilometrażu do trzech miejsc nie wywołuje fałszywego błędu.
@@ -24,9 +25,10 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 - Zapis spadków jezdni i poboczy na planie; automatyczne etykiety powiązane z łukiem, ochrona ręcznych korekt i usuniętych manipulatorów.
 - Najpierw zastosuj geometrię, potem otwórz rampy. W tej wersji obrót odbywa się wokół osi drogi. Model 3D i skarpy pozostają do osobnego przeliczenia.
 
-480 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
+497 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
-Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.57.
+Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.58.
+
 
 
 
