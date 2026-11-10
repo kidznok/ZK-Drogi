@@ -1,5 +1,7 @@
-# ZK Drogi 0.62 — przesuwanie Nawigatora
+# ZK Drogi 0.63 — poprawka zapisu terenu
 
-Nawigator można przeciągać za cały nagłówek „ZK Drogi / Projekt”, także za puste miejsce i obszar wokół tytułu. Wcześniej obsługa przeciągania była przypisana tylko do napisu. Przycisk zamknięcia działa osobno; reszta okna nadal obsługuje wybór dróg, rozwijanie sekcji i przewijanie.
+Naprawiono `eKeyNotFound` po komunikacie „Tworzenie osobnego DWG terenu”. Log wskazywał `Entity.set_Layer(String)` przy tworzeniu 3DFACE w osobnej bazie: nazwa warstwy była rozwiązywana w bieżącym DWG, a nie w bazie terenu. Trójkąty otrzymują teraz ustawienia docelowej bazy i identyfikator warstwy z tej samej bazy.
 
-Sprawdzenie: kompilacja BricsCAD V26 oraz istniejące testy WPF Nawigatora poza ekranem. Przeciąganie myszą w otwartym CAD nie było wykonywane.
+Po aktualizacji ponów import tego samego zakresu z tym samym układem wysokościowym i krokiem siatki. Pobrane poprawnie kafle pozostają w pamięci podręcznej i są ponownie wykorzystywane. Nie trzeba ich usuwać ani pobierać ponownie.
+
+Kompilacja ze SDK BricsCAD V26 i testy aktualizatora przechodzą. Poprawka wynika z rzeczywistego stosu błędu użytkownika; pełnego zapisu DWG w uruchomionym BricsCADzie po zmianie jeszcze nie wykonano.
