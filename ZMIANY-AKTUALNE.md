@@ -1,15 +1,10 @@
-# ZK Drogi 0.75 — mapowanie poboczy do odcinków jezdni
+# ZK Drogi 0.76 — odwrotny kierunek pobocza nie przerywa mapowania
 
-- Mapuj krawędzie dobiera dla pobocza kolejne polilinie jezdni według kilometrażu, strony osi i reguły nazwy warstwy. Nie wymaga jednej polilinii jezdni obejmującej całe pobocze.
-- Tolerancja końca odniesienia wynosi 1 m. Przypadek pobocza km 229,58–581,50 i jezdni 229,62–580,73 jest akceptowany. Polilinie źródłowe nie są skracane ani fizycznie dzielone.
-- Na krótkim brakującym końcu odniesienia program przedłuża poprzeczne odsunięcie skrajnego punktu; jego wysokość utrzymuje na rzędnej końca odniesienia. To przybliżenie w granicach tolerancji, a nie odczyt brakującej geometrii.
-- Odniesienie jest zapisane w odcinkach kilometrażu. Wysokości, model 3D, kreskowanie, spadki, podążanie w planie i przekroje korzystają z właściwego fragmentu jezdni. Zmiany szerokości kolejnych fragmentów propagują się na pobocze; zachowywane są ręczne wartości spadków.
-- Ponowne Mapuj krawędzie analizuje również istniejące pobocza, zachowując ich etykiety i ręczne korekty.
-- Rzeczywiste luki oraz nakładające się, niejednoznaczne jezdnie otrzymują czerwone opisy z kilometrażem na planie. Takie pobocze nie jest przypisywane automatycznie; pozostałe poprawne obiekty są przetwarzane. Ponowne poprawne mapowanie usuwa jego wcześniejsze opisy błędów.
-- Polilinie cofające się względem kilometrażu, fragmenty poprzeczne i obiekty wykraczające poza oś nadal wymagają wyjaśnienia — warstwa nie wystarcza do bezpiecznego przypisania.
+- Naprawiono błąd zgłoszony dla 5CABA: opis brakującego odniesienia wywoływał PlanPoint na jeszcze nieprzypisanej polilinii biegnącej przeciwnie do kilometrażu. To powodowało wycofanie całego przypisania.
+- Opisy luk są teraz pozycjonowane na bieżącej geometrii źródła z zachowaniem jego kierunku i parametrów odcinków. Odczyt nie korzysta z dawnych wiązań ani nie sortuje wierzchołków.
+- Przed nowym przypisaniem niezarejestrowanej polilinii usuwane są odziedziczone zapisy wiązania i próbek. Istniejące zarejestrowane elementy zachowują swoje dane.
+- Zwykły odwrotny kierunek rysowania jest obsługiwany. Rzeczywiste cofanie się wewnątrz polilinii nadal jest wykrywane i pomijane jako niejednoznaczne.
 
-Po instalacji: Krawędzie i elementy → Mapuj krawędzie → Aktualizuj plan. Następnie przelicz 3D i skarpy.
+Po aktualizacji ponownie użyj Mapuj krawędzie, następnie Aktualizuj plan i przelicz model oraz skarpy.
 
-Weryfikacja: 588 testów geometrii i polityk, w tym rzeczywista różnica końców 4/77 cm, dwa odniesienia, zmiana na styku, luki, niejednoznaczność, izolacja strony i nazwy drogi, podążanie za poszerzeniem drugiego fragmentu, zmiana długości osi i zapis/odczyt. Kompilacja z SDK BricsCAD bez błędów. Pełnego mapowania na otwartym rysunku CAD po tej zmianie jeszcze nie wykonano.
-
-Dodatkowo: ścisła zmiana odniesienia na styku — lewa granica próbki nadal korzysta z poprzedniej jezdni. Tolerancja numeryczna końców całego zakresu nie przesuwa granicy między odniesieniami.
+Weryfikacja: 594 testy geometrii i polityk. Test regresji zawiera kilometraże 3014,8864182382931 → 3014,2625656362402 z logu użytkownika. Sprawdzono oba kierunki, końce i odcinek wewnętrzny oraz zachowanie kolejności źródła. Kompilacja z SDK BricsCAD. Pełnego ponownego mapowania w uruchomionym CAD jeszcze nie wykonano.

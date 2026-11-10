@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.76 — odwrotny kierunek pobocza
+- Naprawiono wycofywanie mapowania przy rysowaniu opisu luki na poboczu w odwrotnym kierunku. Opis korzysta z aktualnej geometrii źródła bez sortowania wierzchołków.
+- 594 testy, w tym dokładne kilometraże 5CABA z logu. Pełnego ponownego mapowania w CAD jeszcze nie wykonano.
+
 ## 0.75 — dokładna granica odniesień
 - Zawiera mapowanie poboczy z 0.74 oraz poprawkę lewej granicy próbki na styku dwóch jezdni. 588 testów przechodzi.
 
