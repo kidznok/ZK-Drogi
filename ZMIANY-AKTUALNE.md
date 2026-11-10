@@ -1,10 +1,10 @@
-# ZK Drogi 0.56 — zakres rowu wskazywany w CAD lub profilu
+# ZK Drogi 0.57 — wąski nawigator projektu
 
-- Dodaj rów pyta o Lewy/Prawy i otwiera edytor bez wpisywania kilometraży w wierszu poleceń. Początkowy roboczy zakres obejmuje oś; można go od razu skrócić. Zapis nadal blokuje nakładanie rowów po tej samej stronie.
-- W ustawieniach rowu: Początek · CAD, Koniec · CAD oraz Początek · profil i Koniec · profil.
-- CAD: chwilowe przejście do wskazania punktu w modelu, rzut XY na oś i odczyt kilometrażu z uwzględnieniem UCS. Esc zachowuje zakres.
-- Profil: kliknij na wykresie w wybranym kilometrażu. Wysokości granic pochodzą z dotychczasowej niwelety; nie są pobierane z przypadkowej wysokości kliknięcia.
-- Skrócenie usuwa PVI poza zakresem. Granica przecinająca łuk pionowy wymaga wcześniejszej korekty łuku, aby nie zmieniać go niejawnie.
-- Gdy nie ma widoku profilu DWG, miejsce wstawienia wskazuje się po zatwierdzeniu edytora.
+- Przycisk Nawigator projektu w sekcji Projekt i program, polecenie RSNAVIGATOR. Osobne, wąskie, niemodalne okno 330 px, skalowalne i przesuwane za nagłówek.
+- Drzewo bieżącego DWG: oś, krawędzie i elementy, profil z niweletami rowów, model 3D, skarpy i przekroje.
+- Zaznaczenie pokazuje powiązane polecenia; dwuklik otwiera pierwszą akcję. Wybranie niwelety rowu otwiera edytor z właściwym rowem.
+- Bez osi dostępne są Rysuj polilinię oraz Wskaż oś. Nawigator pokazuje nazwę osi, zakres, prędkość i liczbę elementów/przekrojów.
+- Odświeżenie następuje po poleceniu lub przełączeniu DWG w bezczynnym CAD. Samo drzewo nie uruchamia przebudowy planu ani modelu. Zachowuje zaznaczenie i zwinięte gałęzie.
+- Panel dotyczy jednej bieżącej osi z istniejącego modelu projektu w DWG; nie dodaje obsługi wielu osi w jednym DWG.
 
-Przechodzą testy okna, wyboru zakresu i anulowania. Kompilacja z SDK BricsCAD; natywnego przejścia do wskazywania w CAD jeszcze nie zweryfikowano.
+Testy okna, adresowania edycji rowu, przeładowania drzewa bez poleceń CAD i zachowania rozwinięcia. Kompilacja z SDK BricsCAD; natywnego działania okna jeszcze nie zweryfikowano.
