@@ -1,6 +1,9 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.75 — dokładna granica odniesień
+- Zawiera mapowanie poboczy z 0.74 oraz poprawkę lewej granicy próbki na styku dwóch jezdni. 588 testów przechodzi.
+
 ## 0.74 — pobocza i odcinkowe odniesienia
 - Pobocze może korzystać z kolejnych polilinii jezdni. Tolerancja końców 1 m; bez skracania źródła. Podążanie i wysokości uwzględniają zmianę odniesienia.
 - Ponowne Mapuj krawędzie zachowuje istniejące spadki. Luki i niejednoznaczności są opisane na planie. 587 testów; pełna próba w CAD pozostaje do weryfikacji.
