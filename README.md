@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.72 — kompaktowy postęp
+- Karta odświeżania planu, przebudowy 3D i skarp, opóźnienie 0,4 s, faktyczne etapy i liczniki. Ukryj dla automatyki; Anuluj dla przebudów z transakcją.
+- Testy karty na osobnym pulpicie Windows. Bez próby przebudowy w żywym CAD; API CAD pozostaje na głównym wątku.
+
 ## 0.71 — skarpy od wszystkich poboczy
 - Przycisk Skarpy od poboczy pyta tylko o proporcję 1:n (domyślnie 1:1,5). Sam bierze przypisane pobocza, ich zakresy i teren drogi oraz odkłada skarpy na zewnątrz od osi.
 - Zachowuje istniejące manipulatory i ręczne proporcje. Uzupełnia brakujące zakresy bez drugiej skarpy na tym samym źródle i stronie. Szczegółowy przebieg pozostaje jako RSDAYLIGHTMANUAL.
