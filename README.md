@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.66 — wadliwy fragment nie wycofuje mapowania
+- Powtarzające się/cofające stacje są sprawdzane przed dodaniem wiązania. Nowa wadliwa polilinia jest pomijana z podaniem przyczyny; pozostałe poprawne elementy są przypisywane.
+- Przypadek końca osi 3014.8864182382931 objęto regresją. 561 testów przechodzi. Źródło pozostaje bez sortowania, przycinania i sztucznego rozdzielania kilometraży.
+
 ## 0.65 — ikona terenu
 - Teren w Nawigatorze ma ikonę siatki triangulacji, odrębną od geometrii osi.
 
@@ -52,6 +56,7 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 530 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
 Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.60.
+
 
 
 
