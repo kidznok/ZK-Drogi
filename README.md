@@ -1,6 +1,10 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.73 — niezależny edytor profilu
+- Niemodalne okno niwelety drogi i rowów. Zastosuj zapisuje dane przez osobne polecenie CAD bez zamykania edytora. Zachowuje kopię roboczą po błędzie.
+- Odczyt kilometrażu z modelu, powiązanie z DWG i ochrona przed nadpisaniem po zmianie osi. Testy WPF na osobnym pulpicie; bez próby równoległej pracy w uruchomionym BricsCAD.
+
 ## 0.72 — kompaktowy postęp
 - Karta odświeżania planu, przebudowy 3D i skarp, opóźnienie 0,4 s, faktyczne etapy i liczniki. Ukryj dla automatyki; Anuluj dla przebudów z transakcją.
 - Testy karty na osobnym pulpicie Windows. Bez próby przebudowy w żywym CAD; API CAD pozostaje na głównym wątku.
