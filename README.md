@@ -1,6 +1,9 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.62 — przesuwanie Nawigatora
+- Okno można przeciągać za cały górny pasek, również za puste miejsce obok napisu. Przycisk zamknięcia pozostaje niezależny.
+
 ## 0.61 — teren z Geoportalu
 - Nawigator → Teren → Pobierz z Geoportalu (`RSGEOPORTAL`). Zakres z zamkniętej polilinii albo pas wzdłuż aktywnej osi.
 - PL-1992 i strefy PL-2000, wybór PL-EVRF2007-NH / PL-KRON86-NH, krok 1 / 2 / 5 m. Pobieranie w tle, anulowanie i lokalna pamięć podręczna.
@@ -37,6 +40,7 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 530 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
 Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.60.
+
 
 
 
