@@ -1,6 +1,11 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.61 — teren z Geoportalu
+- Nawigator → Teren → Pobierz z Geoportalu (`RSGEOPORTAL`). Zakres z zamkniętej polilinii albo pas wzdłuż aktywnej osi.
+- PL-1992 i strefy PL-2000, wybór PL-EVRF2007-NH / PL-KRON86-NH, krok 1 / 2 / 5 m. Pobieranie w tle, anulowanie i lokalna pamięć podręczna.
+- Osobny DWG z trójkątami 3DFACE, automatycznie podłączany jako Xref. Teren do przekrojów i skarp; profil terenu odczytywany przy pełnym pokryciu osi.
+- 555 testów danych/geometrii, testy WPF poza ekranem oraz rzeczywiste pobieranie z GUGiK w obu układach wysokościowych. Natywnego zapisu DWG i wstawienia Xrefa w BricsCADzie jeszcze nie zweryfikowano. Zakresy duże: limit miliona próbek / 300 tys. trójkątów; zwiększ krok lub podziel zakres.
 ## 0.60 — wiele dróg w jednym DWG
 - Dodaj drogę rejestruje kolejną niezależną oś w tym samym DWG. Każda ma własne ustawienia, krawędzie, profil i rowy, model, skarpy oraz przekroje. Rozwinięcie drogi wybiera kontekst pracy.
 - Nowy nawigator z rozwijanymi sekcjami, podpisem Vdp, oznaczeniem aktywnej drogi, bursztynowymi znacznikami aktualności i czerwonymi błędami. Starsze wyniki wymagają jednokrotnego przeliczenia do zweryfikowania stanu.
@@ -32,6 +37,7 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 530 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
 Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.60.
+
 
 
 
