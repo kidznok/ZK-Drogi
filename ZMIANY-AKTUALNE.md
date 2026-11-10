@@ -1,11 +1,20 @@
-# ZK Drogi 0.70 — przesuwanie uchwytów osi
+# ZK Drogi 0.71 — automatyczne skarpy od poboczy
 
-Ruch natywnego uchwytu polilinii sterującej osi zachowuje zapisane promienie R oraz długości klotoid L1/L2. Usunięto niejawne uruchamianie doboru wszystkich automatycznych krzywych, które potrafiło cofnąć ruch nawet wtedy, gdy geometria z dotychczasowymi parametrami nadal się mieściła. Zwykłe odświeżanie planu również nie ponawia tego doboru bez edycji parametrów.
+Nawigator → Skarpy → **Skarpy od poboczy**. To nowy domyślny przebieg polecenia `RSDAYLIGHT`:
 
-Dobór Auto / Proponuj pozostaje w edytorze Geometria osi. Zapisane flagi Auto nie są wyłączane przez ruch uchwytu. Po poprawnym ruchu dotychczasowy mechanizm aktualizuje zależne krawędzie i pobocza. Model 3D i skarpy nadal wymagają jawnego przeliczenia.
+- Jedno pytanie: pochylenie **1:n**, domyślnie **1:1,5**.
+- Źródła: wszystkie przypisane elementy typu Pobocze aktywnej drogi.
+- Zakres: pełny wspólny zakres modelowy każdego pobocza, bez wpisywania kilometraży.
+- Kierunek: na zewnątrz od osi, rozpoznawany z zapisanej strony pobocza.
+- Teren: Xref i warstwa zapisane przy drodze, bez ponownego wskazywania. Dla starszych projektów dopuszczony jest jeden wspólny teren istniejących skarp; jeżeli nie ma jednoznacznego terenu, program prosi o przypisanie go w sekcji Teren.
+- Nowe odcinki używają kroku 5 m i zasięgu dowiązania 100 m. Istniejące parametry krok/zasięg są zachowywane. Krok skarpy pozostaje dostępny osobno.
 
-Walidacja matematycznej geometrii pozostaje aktywna. Jeżeli istniejące R/L po ruchu nie mieszczą się na ramionach albo sąsiednie krzywe kolidują, edycja jest odrzucana z przyczyną i przywróceniem ostatniego poprawnego przebiegu. Zmiana nie potwierdza zgodności parametrów z prędkością projektową.
+Program tworzy powierzchnie i dotychczasowe strzałkowe manipulatory proporcji na skarpie. Zapisane niwelety rowów są nadal uwzględniane: skarpa do dna, dno i przeciwskarpa.
 
-565 testów geometrii/polityk: ruch końca z zachowaniem R/L i flag Auto, brak mutacji zapisanego stanu przed zatwierdzeniem, odrzucenie niemożliwej geometrii i oddzielenie dodania wierzchołka od przesunięcia. Kompilacja SDK BricsCAD V26. Pełnego ruchu uchwytu i podążania elementów w uruchomionym CAD po tej poprawce jeszcze nie wykonano.
+Ponowne uruchomienie aktualizuje istniejące skarpy na zewnętrznej stronie i uzupełnia wyłącznie brakujące zakresy. Nie tworzy drugiej skarpy na już obsłużonym zakresie tego samego źródła/strony. Ręczne zmiany proporcji i manipulatory istniejących skarp pozostają zachowane; podana domyślna proporcja dotyczy nowych odcinków. Skarpy ręczne na innych źródłach pozostają bez zmian.
 
-Dodatkowo odczytano przez API kopię aktualnych parametrów osi użytkownika: 9 wierzchołków i 7 krzywych. W teście obliczeniowym wszystkie 36 przesunięć o 1 m (każdy wierzchołek w czterech kierunkach) przeszło bez zmiany R/L i flag Auto. Nie wykonywano tych ruchów w rysunku CAD.
+Pobocze przecinające oś lub leżące na osi jest pomijane z komunikatem zamiast zgadywania strony. Nieprzypisane polilinie nie są automatycznie przejmowane przez to polecenie — trzeba je najpierw zmapować. Brak dowiązania do terenu jest zgłaszany, bez tworzenia sztucznego zakończenia.
+
+Poprzedni szczegółowy przebieg pozostał jako `RSDAYLIGHTMANUAL` do nietypowych pojedynczych przypadków. Domyślny przycisk nie pyta o źródło, kilometraż, Xref, warstwę, krok, zasięg ani stronę.
+
+574 testy geometrii/polityk, w tym kierunek dla lewego/prawego pobocza, odrzucenie niejednoznacznej strony i niepoprawnych danych, uzupełnianie luk oraz brak duplikatów przy ponownym wywołaniu. Kompilacja SDK BricsCAD V26. Pełnego utworzenia skarp dla wszystkich poboczy w uruchomionym CAD po zmianie jeszcze nie zweryfikowano.

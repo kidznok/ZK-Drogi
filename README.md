@@ -1,6 +1,11 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.71 — skarpy od wszystkich poboczy
+- Przycisk Skarpy od poboczy pyta tylko o proporcję 1:n (domyślnie 1:1,5). Sam bierze przypisane pobocza, ich zakresy i teren drogi oraz odkłada skarpy na zewnątrz od osi.
+- Zachowuje istniejące manipulatory i ręczne proporcje. Uzupełnia brakujące zakresy bez drugiej skarpy na tym samym źródle i stronie. Szczegółowy przebieg pozostaje jako RSDAYLIGHTMANUAL.
+- 574 testy geometrii/polityk. Pełnego utworzenia kompletu skarp w CAD po zmianie jeszcze nie wykonano.
+
 ## 0.70 — przesuwanie osi uchwytami
 - Ruch uchwytu zachowuje zapisane R i obie klotoidy; nie uruchamia ponownego doboru wszystkich łuków. Rzeczywista kolizja lub brak miejsca nadal odrzuca zmianę.
 - 565 testów przechodzi. Na kopii parametrów aktualnej osi (9 wierzchołków, 7 krzywych) wszystkie 36 przesunięć o 1 m przeszło obliczeniowo bez zmiany R/L. Pełnego ruchu i podążania krawędzi w CAD po tej poprawce jeszcze nie wykonano.
@@ -72,6 +77,7 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 530 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
 Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.60.
+
 
 
 
