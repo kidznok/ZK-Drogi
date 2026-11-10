@@ -1,6 +1,11 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.64 — mapowanie krawędzi z warstw
+- Nawigator → Krawędzie i elementy → Mapuj krawędzie: istniejące polilinie są przypisywane według reguł nazw warstw i odniesień. Działa także bez automatycznego wykrywania nowych polilinii.
+- Zachowuje istniejące przypisania i ręczne spadki. Nie przejmuje geometrii innych dróg. Niejednoznaczne odniesienia rozstrzyga tabela Wybierz odniesienia.
+- 555 istniejących testów geometrii i polityk przechodzi. Pełnego przebiegu nowego przycisku w CAD jeszcze nie sprawdzono.
+
 ## 0.63 — zapis terenu z Geoportalu
 - Naprawiono eKeyNotFound przy tworzeniu DWG terenu: 3DFACE otrzymują warstwę przez identyfikator w docelowej bazie. Wcześniej CAD szukał nazwy warstwy w bieżącym rysunku.
 - Ponów import tego samego zakresu — poprawnie pobrane kafle są w pamięci podręcznej. Pełna próba zapisu w CAD po poprawce pozostaje do wykonania.
@@ -44,6 +49,7 @@ Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory:
 530 testów obliczeniowych, testy okien WPF i 12 testów aktualizatora przechodzą. Kompilacja bez ostrzeżeń i błędów. Natywny zapis, przebudowa i nowe przybliżanie rzutni w BricsCADzie nie zostały jeszcze zweryfikowane. Szczegóły: ZMIANY-AKTUALNE.md.
 
 Zamknij wszystkie sesje BricsCAD przed instalacją wersji 0.60.
+
 
 
 

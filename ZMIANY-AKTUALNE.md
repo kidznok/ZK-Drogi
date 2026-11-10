@@ -1,7 +1,13 @@
-# ZK Drogi 0.63 — poprawka zapisu terenu
+# ZK Drogi 0.64 — mapowanie istniejących krawędzi
 
-Naprawiono `eKeyNotFound` po komunikacie „Tworzenie osobnego DWG terenu”. Log wskazywał `Entity.set_Layer(String)` przy tworzeniu 3DFACE w osobnej bazie: nazwa warstwy była rozwiązywana w bieżącym DWG, a nie w bazie terenu. Trójkąty otrzymują teraz ustawienia docelowej bazy i identyfikator warstwy z tej samej bazy.
+Nawigator → Krawędzie i elementy → **Mapuj krawędzie** (`RSMAPEDGES`). Program przegląda istniejące polilinie w modelu i przypisuje je do aktywnej drogi według zapisanych reguł warstw: krawędź jezdni, pobocze, krawężnik, chodnik, zatoka.
 
-Po aktualizacji ponów import tego samego zakresu z tym samym układem wysokościowym i krokiem siatki. Pobrane poprawnie kafle pozostają w pamięci podręcznej i są ponownie wykorzystywane. Nie trzeba ich usuwać ani pobierać ponownie.
+Typ, odniesienie, pochylenie lub wysokość krawężnika i podążanie w planie pochodzą z ustawień mapowania warstw. Najpierw powstają powiązania z osią, następnie zależne krawężniki/pobocza/chodniki. Kolejność obiektów w pliku nie decyduje o kolejności przypisania. Końcówki L/P i zakres krótszych fragmentów są uwzględniane przez dotychczasowy mechanizm rozpoznawania.
 
-Kompilacja ze SDK BricsCAD V26 i testy aktualizatora przechodzą. Poprawka wynika z rzeczywistego stosu błędu użytkownika; pełnego zapisu DWG w uruchomionym BricsCADzie po zmianie jeszcze nie wykonano.
+Ręczne mapowanie działa również przy wyłączonym automatycznym rozpoznawaniu nowo rysowanych polilinii. Nie włącza tej automatyki na przyszłość. Powtórne użycie zachowuje istniejące przypisania, ręczne korekty i spadki. Nie przejmuje obiektów innych dróg ani wygenerowanej geometrii; nie przetwarza Xrefów i podkładów. Zamknięte i zdegenerowane polilinie nie są elementami krawędzi.
+
+Jeżeli odniesienie nie jest jednoznaczne, polilinia pozostaje nieprzypisana, a wiersz poleceń podaje przyczynę. **Wybierz odniesienia** otwiera dotychczasową tabelę do ręcznego rozstrzygnięcia. Nie zgadujemy zależności między kilkoma pasującymi krawędziami. Błędne lub niepełne reguły warstw wymagają poprawienia w Ustawieniach → Mapowanie warstw.
+
+Po mapowaniu aktualizowany jest plan i licznik elementów w Nawigatorze. Powierzchnie, skarpy i model 3D pozostają do jawnego przeliczenia.
+
+Weryfikacja: kompilacja SDK BricsCAD V26; 555 testów geometrii/polityk, w tym istniejące przypadki mapowania nazw, stron L/P, krótkich fragmentów i niejednoznacznych odniesień. Pełnego przebiegu nowego przycisku w uruchomionym CAD jeszcze nie sprawdzono.
