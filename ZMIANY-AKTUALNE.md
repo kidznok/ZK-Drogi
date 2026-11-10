@@ -1,7 +1,11 @@
-# ZK Drogi 0.69 — lista niwelet w Nawigatorze
+# ZK Drogi 0.70 — przesuwanie uchwytów osi
 
-Sekcja Profil pokazuje liczbę zapisanych niwelet oraz osobne pozycje: Niweleta drogi i każda zapisana niweleta rowu lub innego elementu. Niweleta drogi nie jest już pomijana w liście.
+Ruch natywnego uchwytu polilinii sterującej osi zachowuje zapisane promienie R oraz długości klotoid L1/L2. Usunięto niejawne uruchamianie doboru wszystkich automatycznych krzywych, które potrafiło cofnąć ruch nawet wtedy, gdy geometria z dotychczasowymi parametrami nadal się mieściła. Zwykłe odświeżanie planu również nie ponawia tego doboru bez edycji parametrów.
 
-Przy każdej niwelecie widoczny jest typ/strona i zakres kilometrażu. Rozwinięcie pozycji udostępnia Edytuj niweletę otwierające właściwy profil w kontekście właściwej drogi. Licznik pochodzi z zapisanych profili; robocza niweleta w edytorze pojawi się po zatwierdzeniu Zastosuj i aktualizuj DWG.
+Dobór Auto / Proponuj pozostaje w edytorze Geometria osi. Zapisane flagi Auto nie są wyłączane przez ruch uchwytu. Po poprawnym ruchu dotychczasowy mechanizm aktualizuje zależne krawędzie i pobocza. Model 3D i skarpy nadal wymagają jawnego przeliczenia.
 
-Testy WPF poza ekranem obejmują rzeczywisty adapter listy dla drogi oraz dwóch rowów, trzy pozycje z typami L/P, zakresami i akcjami niosącymi identyfikator drogi/niwelety. Zachowano obecne zmiany wspólnego modułu aktualizacji i dołączono wymaganą bibliotekę ZK.UI.Wpf do katalogu dodatku CAD.
+Walidacja matematycznej geometrii pozostaje aktywna. Jeżeli istniejące R/L po ruchu nie mieszczą się na ramionach albo sąsiednie krzywe kolidują, edycja jest odrzucana z przyczyną i przywróceniem ostatniego poprawnego przebiegu. Zmiana nie potwierdza zgodności parametrów z prędkością projektową.
+
+565 testów geometrii/polityk: ruch końca z zachowaniem R/L i flag Auto, brak mutacji zapisanego stanu przed zatwierdzeniem, odrzucenie niemożliwej geometrii i oddzielenie dodania wierzchołka od przesunięcia. Kompilacja SDK BricsCAD V26. Pełnego ruchu uchwytu i podążania elementów w uruchomionym CAD po tej poprawce jeszcze nie wykonano.
+
+Dodatkowo odczytano przez API kopię aktualnych parametrów osi użytkownika: 9 wierzchołków i 7 krzywych. W teście obliczeniowym wszystkie 36 przesunięć o 1 m (każdy wierzchołek w czterech kierunkach) przeszło bez zmiany R/L i flag Auto. Nie wykonywano tych ruchów w rysunku CAD.
