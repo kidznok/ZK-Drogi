@@ -1,6 +1,11 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.80 — mapowanie i punkty szerokości
+- Nowe okno analizy: odniesienia według zakresu i strony osi, widoczne listy wyboru i jawne częściowe pokrycie.
+- Naprawiono kolizję bliskich punktów ze wspólnym znacznikiem wierzchołka po przesunięciu osi. Dokładniejsza diagnostyka szerokości.
+- 635 testów geometrii i testy WPF na izolowanym pulpicie. Bez pełnej próby na aktualnym DWG użytkownika.
+
 ## 0.79 — granice próbkowania modelu 3D
 - Poprawiono rekurencję na niemal identycznych kilometrażach, przycięcie do rzeczywistego zakresu oraz wybór jednej strony granicy reguł. Zachowane są prawdziwe skoki wysokości i zabezpieczenia próbkowania.
 - Scalanie dodatkowych bliskich węzłów zapobiega nieprawidłowej siatce szerokości. 626 testów; pierwszy model wymaga pełnego przeliczenia. Bez pełnej próby na żywym DWG.
