@@ -1,4 +1,8 @@
 # ZK Drogi
+
+## Aktualne wydanie: 0.91
+[Pobierz instalator](https://github.com/kidznok/ZK-Drogi/releases/tag/v0.91) · [Opis zmian](ZMIANY-91.md)
+
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
 ## 0.82 — działy Nawigatora na wstążce
