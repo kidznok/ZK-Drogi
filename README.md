@@ -1,6 +1,11 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.82 — działy Nawigatora na wstążce
+- Geometria osi, Teren, Krawędzie i elementy, Profil, Model 3D, Skarpy i Przekroje; osobny duży Nawigator oraz Ustawienia i Aktualizacja programu.
+- Małe przyciski w kolumnach po maksymalnie trzy rzędy. Dodane mapowanie i wybór odniesień oraz Geoportal, parametry i etykiety osi.
+- 664 testy i kompilacja z SDK BricsCAD. Po instalacji uruchom CAD ponownie; RSRIBBON uaktywnia wstążkę. Bez wizualnej próby w CAD użytkownika.
+
 ## 0.81 — reguły sąsiedztwa i ciągłość krawędzi
 - Warstwy rozpoznają typy, osobne reguły określają spadek / różnicę Z między najbliższymi elementami od osi na zewnątrz.
 - Ustawiana tolerancja ciągłości (domyślnie 0,25 m), logiczne ciągi wielu polilinii, brak zbędnych automatycznych etykiet na ich stykach i krótkie łączniki modelu drogi 3D.
