@@ -1,6 +1,11 @@
 # ZK Drogi
 Wersja testowa nakładki do projektowania dróg w BricsCAD V26 x64. Instalatory: Releases.
 
+## 0.81 — reguły sąsiedztwa i ciągłość krawędzi
+- Warstwy rozpoznają typy, osobne reguły określają spadek / różnicę Z między najbliższymi elementami od osi na zewnątrz.
+- Ustawiana tolerancja ciągłości (domyślnie 0,25 m), logiczne ciągi wielu polilinii, brak zbędnych automatycznych etykiet na ich stykach i krótkie łączniki modelu drogi 3D.
+- Ustawienia: Domyślne reguły → Mapuj krawędzie → odśwież 3D / skarpy. Ręczne wartości pozostają chronione. 661 testów geometrii, testy WPF i 13 testów aktualizatora. Bez pełnej próby na aktualnym DWG użytkownika.
+
 ## 0.80 — mapowanie i punkty szerokości
 - Nowe okno analizy: odniesienia według zakresu i strony osi, widoczne listy wyboru i jawne częściowe pokrycie.
 - Naprawiono kolizję bliskich punktów ze wspólnym znacznikiem wierzchołka po przesunięciu osi. Dokładniejsza diagnostyka szerokości.
